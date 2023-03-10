@@ -35,7 +35,7 @@ class MyAppState extends ChangeNotifier {
   }
 
   var favorites = <WordPair>[];
-  //we can refactor it to use a set 
+  //we can refactor it to use a set
 
   void toggleFavorite() {
     if (favorites.contains(current)) {
@@ -52,6 +52,13 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
     var pair = appState.current;
+
+    IconData icon;
+    if (appState.favorites.contains(pair)) {
+      icon = Icons.favorite;
+    } else {
+      icon = Icons.favorite_border;
+    }
     return Scaffold(
       body: Center(
           child: Column(
@@ -59,12 +66,23 @@ class MyHomePage extends StatelessWidget {
         children: [
           BigCard(pair: pair),
           SizedBox(height: 10),
-          ElevatedButton(
-            onPressed: () {
-              // print('button pressed');
-              appState.getNext();
-            },
-            child: Text('Next'),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ElevatedButton.icon(
+                onPressed: (){
+                  appState.toggleFavorite()
+              }, 
+              icon: Icon(icon), 
+              label:Text('Like')),
+              ElevatedButton(
+                onPressed: () {
+                  // print('button pressed');
+                  appState.getNext();
+                },
+                child: Text('Next'),
+              ),
+            ],
           )
         ],
       )),
