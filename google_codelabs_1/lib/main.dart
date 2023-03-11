@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -64,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
         page = GeneratorPage();
         break;
       case 1:
-        page = Placeholder();
+        page = Favorite();
         break;
       default:
         throw UnimplementedError('no widget for selected index');
