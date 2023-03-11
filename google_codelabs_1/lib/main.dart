@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -145,6 +147,28 @@ class GeneratorPage extends StatelessWidget {
         ],
       )),
     );
+  }
+}
+
+class Favorite extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    var appState = context.watch<MyAppState>();
+
+    return ListView(children: [
+      Padding(
+          padding: const EdgeInsets.all(20),
+          child: Text('You have ${appState.favorites.length} favorites:')),
+      // appState.favorites.map((pair) => return ListTile(
+      //   leading: Icon(Icons.favorite),
+      //   title: Text(pair.asLowerCase),
+      // ))
+      for (var pair in appState.favorites)
+        ListTile(
+          leading: Icon(Icons.favorite),
+          title: Text(pair.asLowerCase),
+        ),
+    ]);
   }
 }
 
