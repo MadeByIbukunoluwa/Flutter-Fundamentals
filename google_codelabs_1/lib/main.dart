@@ -163,9 +163,9 @@ class GeneratorPage extends StatelessWidget {
           flex: 3,
           child: HistoryListView(),
         ),
-        SizedBox(height: 10),
+        SizedBox(height: 20),
         BigCard(pair: pair),
-        SizedBox(height: 10),
+        SizedBox(height: 20),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -315,12 +315,13 @@ class _HistoryListViewState extends State<HistoryListView> {
                     onPressed: () {
                       appState.toggleFavorite(pair);
                     },
-                    icon: appState.favorites.contains(pair) ? Icon(Icons.favorite, size:12) : SizedBox(),
+                    icon: appState.favorites.contains(pair)
+                        ? Icon(Icons.favorite, size: 12)
+                        : SizedBox(),
                     label: Text(
                       pair.asLowerCase,
-                      semanticsLabel:pair.asPascalCase,
-                    )
-                ),
+                      semanticsLabel: pair.asPascalCase,
+                    )),
               ));
         },
       ),
