@@ -405,14 +405,10 @@ class _ShoppingListState extends State<ShoppingList> {
 
 void main() {
   runApp(const MaterialApp(
-    title:'Shopping List',
-    home:ShoppingList(
-      products: [
+      title: 'Shopping List',
+      home: ShoppingList(products: [
         Product(name: 'Eggs'),
         Product(name: 'Flour'),
         Product(name: 'Chocolate Chips'),
-      ]
-    )
-  ));
+      ])));
 }
-
