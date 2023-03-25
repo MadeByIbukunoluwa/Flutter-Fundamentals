@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+// import 'package:flutter/rendering.dart';
 // import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;
 
 void main() {
@@ -19,7 +19,8 @@ class MyApp extends StatelessWidget {
           appBar: AppBar(
             title: const Text('Flutter layout demo'),
           ),
-          body: Center(child: buildHomePage('Strawberry Pavlova Recipe'))),
+          // body: Center(child: buildHomePage('Strawberry Pavlova Recipe'))),
+          body: Center(child: _buildGrid())),
     );
   }
 
@@ -194,4 +195,14 @@ class MyApp extends StatelessWidget {
           _buildDecoratedImage(imageIndex + 1),
         ],
       );
+
+  //GridView
+  Widget _buildGrid() => GridView.extent(
+      maxCrossAxisExtent: 150,
+      padding: const EdgeInsets.all(4),
+      mainAxisSpacing: 4,
+      crossAxisSpacing: 4,
+      children: _buildGridTileList(30));
+  List<Container> _buildGridTileList(int count) => List.generate(
+      count, (i) => Container(child: Image.asset('images/pic$i.jpg')));
 }
