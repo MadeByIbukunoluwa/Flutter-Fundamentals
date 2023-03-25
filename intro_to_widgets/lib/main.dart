@@ -251,63 +251,168 @@ import 'package:flutter/material.dart';
 //   ))));
 // }
 
+// //Simple mock shoppingcart that has only chips
+// class Product {
+//   const Product({required this.name});
+
+//   final String name;
+// }
+
+// typedef CartChangedCallback = Function(Product product, bool inCart);
+
+// class ShoppingListItem extends StatelessWidget {
+//   ShoppingListItem({
+//     required this.product,
+//     required this.inCart,
+//     required this.onCartChanged,
+//   }) : super(key: ObjectKey(product));
+
+//   final Product product;
+//   final bool inCart;
+//   final CartChangedCallback onCartChanged;
+
+//   Color _getColor(BuildContext context) {
+//     return inCart ? Colors.black54 : Theme.of(context).primaryColor;
+//   }
+
+//   TextStyle? _getTextStyle(BuildContext context) {
+//     if (!inCart) return null;
+
+//     return const TextStyle(
+//         color: Colors.black54, decoration: TextDecoration.lineThrough);
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return ListTile(
+//         onTap: () {
+//           onCartChanged(product, inCart);
+//         },
+//         leading: CircleAvatar(
+//           backgroundColor: _getColor(context),
+//           child: Text(product.name[0]),
+//         ),
+//         title: Text(product.name, style: _getTextStyle(context)));
+//   }
+// }
+
+// void main() {
+//   runApp(
+//     MaterialApp(
+//       home:Scaffold(
+//         body:Center(
+//           child:ShoppingListItem(
+//             product: const Product(name:'Chips'),
+//             inCart:true,
+//             onCartChanged: (product, inCart) {},
+//             )
+//           )
+//       )
+//     )
+//   );
+// }
+
+// Simple Shopping List
+//Parent that stores mutable state
+
 class Product {
   const Product({required this.name});
 
   final String name;
 }
 
-typedef CartChangedCallback = Function(Product product, bool inCart);
+typedef CartChangeCallback = Function(Product product, bool inCart);
 
 class ShoppingListItem extends StatelessWidget {
-  ShoppingListItem({
-    required this.product,
-    required this.inCart,
-    required this.onCartChanged,
-  }) : super(key: ObjectKey(product));
+  ShoppingListItem(
+      {required this.product,
+      required this.inCart,
+      required this.onCartChanged})
+      : super(key: ObjectKey(product));
 
   final Product product;
   final bool inCart;
-  final CartChangedCallback onCartChanged;
+  final CartChangeCallback onCartChanged;
 
   Color _getColor(BuildContext context) {
     return inCart ? Colors.black54 : Theme.of(context).primaryColor;
   }
 
-  TextStyle? _getTextStyle(BuildContext context) {
+  TextStyle? _getTextStyle() {
     if (!inCart) return null;
 
     return const TextStyle(
-        color: Colors.black54, decoration: TextDecoration.lineThrough);
+      color: Colors.black54,
+      decoration: TextDecoration.lineThrough,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-        onTap: () {
-          onCartChanged(product, inCart);
-        },
-        leading: CircleAvatar(
-          backgroundColor: _getColor(context),
-          child: Text(product.name[0]),
-        ),
-        title: Text(product.name, style: _getTextStyle(context)));
+      onTap: () {
+        onCartChanged(product, inCart);
+      },
+      leading: CircleAvatar(
+          backgroundColor: _getColor(context), child: Text(product.name[0])),
+      title: Text(
+        product.name,
+        style: _getTextStyle(),
+      ),
+    );
+  }
+}
+
+class ShoppingList extends StatefulWidget {
+  const ShoppingList({required this.products, super.key});
+
+  final List<Product> products;
+
+  @override
+  State<ShoppingList> createState() => _ShoppingListState();
+}
+
+class _ShoppingListState extends State<ShoppingList> {
+  final _shoppingCart = <Product>{};
+
+  void _handleCartChanged(Product product, bool inCart) {
+    setState(() {
+      if (!inCart) {
+        _shoppingCart.add(product);
+      } else {
+        _shoppingCart.remove(product);
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(),
+        body: ListView(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          //converted iterable<ShoppingListItem> to a dynamic List so it can be assignable to List<widget>
+          children: widget.products.map((product) {
+            return ShoppingListItem(
+              product: product,
+              inCart: _shoppingCart.contains(product),
+              onCartChanged: _handleCartChanged,
+            );
+          }).toList(),
+        ));
   }
 }
 
 void main() {
-  runApp(
-    MaterialApp(
-      home:Scaffold(
-        body:Center(
-          child:ShoppingListItem(
-            product: const Product(name:'Chips'),
-            inCart:true,
-            onCartChanged: (product, inCart) {},
-            )
-          )
-      )
+  runApp(const MaterialApp(
+    title:'Shopping List',
+    home:ShoppingList(
+      products: [
+        Product(name: 'Eggs'),
+        Product(name: 'Flour'),
+        Product(name: 'Chocolate Chips'),
+      ]
     )
-  );
+  ));
 }
 
