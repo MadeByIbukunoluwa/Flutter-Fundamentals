@@ -27,8 +27,8 @@ class MyApp extends StatelessWidget {
           ),
           // body: Center(child: buildHomePage('Strawberry Pavlova Recipe'))),
           // body: Center(child: _buildList())),
-          // body: Center(child: _buildStack())),
-          body: Center(child: _buildListIntl())),
+          body: Center(child: _buildStack())),
+          // body: Center(child: _buildListIntl())),
     );
   }
 
