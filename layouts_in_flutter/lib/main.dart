@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/gallery_localizations.dart';
 // import 'package:flutter/rendering.dart';
 // import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;
 
 void main() {
   // debugPaintSizeEnabled = true;
   runApp(const MyApp());
+}
+
+enum ListDemoType {
+  oneLine,
+  twoLine,
 }
 
 class MyApp extends StatelessWidget {
@@ -21,7 +27,8 @@ class MyApp extends StatelessWidget {
           ),
           // body: Center(child: buildHomePage('Strawberry Pavlova Recipe'))),
           // body: Center(child: _buildList())),
-          body: Center(child: _buildStack())),
+          // body: Center(child: _buildStack())),
+          body: Center(child: _buildListIntl())),
     );
   }
 
@@ -268,42 +275,66 @@ class MyApp extends StatelessWidget {
 
 Widget _buildCard() {
   return SizedBox(
-    height:200,
-    child:Card(
-        child:Column(
-            children: [
-              ListTile(
-                title:const Text(
-                    '1625 Main Street',
-                    style:TextStyle(fontWeight: FontWeight.w500)
-                    ),
-                subtitle: const Text('My City, CA 99984'),
-                leading:Icon(
-                  Icons.restaurant_menu,
-                  color:Colors.blue[500]
-                ),
-              ),
-              const Divider(),
-              ListTile(
-                title: const Text(
-                    '(408) 555-1212',
-                    style:TextStyle(fontWeight:FontWeight.w500)
-                ),
-                leading: Icon(
-                    Icons.contact_phone,
-                    color:Colors.blue[500]
-                )
-              ),
-              ListTile(
-                title:const Text('costa@example.com'),
-                leading:Icon(
-                  Icons.contact_mail,
-                  color:Colors.blue[500],
-                )
-              )
-            ],
-        )
-    ),
+    height: 200,
+    child: Card(
+        child: Column(
+      children: [
+        ListTile(
+          title: const Text('1625 Main Street',
+              style: TextStyle(fontWeight: FontWeight.w500)),
+          subtitle: const Text('My City, CA 99984'),
+          leading: Icon(Icons.restaurant_menu, color: Colors.blue[500]),
+        ),
+        const Divider(),
+        ListTile(
+            title: const Text('(408) 555-1212',
+                style: TextStyle(fontWeight: FontWeight.w500)),
+            leading: Icon(Icons.contact_phone, color: Colors.blue[500])),
+        ListTile(
+            title: const Text('costa@example.com'),
+            leading: Icon(
+              Icons.contact_mail,
+              color: Colors.blue[500],
+            ))
+      ],
+    )),
   );
 }
 
+Widget _buildListIntl() {
+  return ListDemo(type: ListDemoType.twoLine);
+}
+
+class ListDemo extends StatelessWidget {
+  const ListDemo({super.key, required this.type});
+
+  final ListDemoType type;
+
+  @override
+  Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+
+    return Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Text(localizations!.demoListTitle),
+        ),
+        body: Scrollbar(
+          child: ListView(
+            restorationId: 'list_demo_list_view',
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            children: [
+              for (int index = 1; index < 21; index++)
+                ListTile(
+                    leading: ExcludeSemantics(
+                      child: CircleAvatar(child: Text('$index')),
+                    ),
+                    title: Text(localizations.demoBottomSheetItem(index)),
+                    subtitle: type == ListDemoType.twoLine
+                        ? Text(localizations.demoListTitle)
+                        : null),
+            ],
+          ),
+        ));
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "demoListTitle": "demolisttitle",
+  "@demoListTitle": {
+    "description": "This is the demo list title"
+  },
+ "demoBottomSheetItem": "Item {value}",
+  "@demoBottomSheetItem": {
+    "description": "Generic item placeholder.",
+    "placeholders": {
+      "value": {
+        "example": "1"
+      }
+    }
+  }
+}
+
+
