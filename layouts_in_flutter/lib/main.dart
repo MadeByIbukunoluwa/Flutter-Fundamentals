@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/gallery_localizations.dart';
 import 'package:layouts_in_flutter/MediaQueryExample.dart';
+import 'package:layouts_in_flutter/LoginExample.dart';
 // import 'package:flutter/rendering.dart';
 // import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;
 
@@ -49,7 +50,8 @@ class MyApp extends StatelessWidget {
         //     )
         //     // body: Center(child: _buildListIntl())),
         //     )
-        home:MediaQueryExample()
+        // home:MediaQueryExample()
+        home:LoginExample()
       );
   }
 
