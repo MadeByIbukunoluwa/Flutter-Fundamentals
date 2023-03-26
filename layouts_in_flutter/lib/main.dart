@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/gallery_localizations.dart';
+import 'package:layouts_in_flutter/MediaQueryExample.dart';
 // import 'package:flutter/rendering.dart';
 // import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;
 
@@ -30,26 +31,26 @@ class MyApp extends StatelessWidget {
     );
     return MaterialApp(
         title: 'Flutter layout Demo',
-        home: Scaffold(
-            appBar: AppBar(
-              title: const Text('Flutter layout demo'),
-            ),
-            // body: Center(child: buildHomePage('Strawberry Pavlova Recipe'))),
-            // body: Center(child: _buildList())),
-            // body: Center(child: _buildStack())),
-            body: Column(
-              children: [
-                Image.asset('images/lake.jpg',
-                    width: 600, height: 240, fit: BoxFit.cover),
-                titleSection,
-                buttonSection,
-                textSection
-              ],
-            )
-            // body: Center(child: _buildListIntl())),
-
-            ));
-   
+        // home: Scaffold(
+        //     appBar: AppBar(
+        //       title: const Text('Flutter layout demo'),
+        //     ),
+        //     // body: Center(child: buildHomePage('Strawberry Pavlova Recipe'))),
+        //     // body: Center(child: _buildList())),
+        //     // body: Center(child: _buildStack())),
+        //     body: Column(
+        //       children: [
+        //         Image.asset('images/lake.jpg',
+        //             width: 600, height: 240, fit: BoxFit.cover),
+        //         titleSection,
+        //         buttonSection,
+        //         textSection
+        //       ],
+        //     )
+        //     // body: Center(child: _buildListIntl())),
+        //     )
+        home:MediaQueryExample()
+      );
   }
 
 // Row and Column
