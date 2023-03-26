@@ -49,6 +49,7 @@ class MyApp extends StatelessWidget {
             // body: Center(child: _buildListIntl())),
 
             ));
+   
   }
 
 // Row and Column
@@ -419,3 +420,5 @@ Widget textSection = const Padding(
     softWrap: true,
   ),
 );
+
+//Flutter responsive UI
