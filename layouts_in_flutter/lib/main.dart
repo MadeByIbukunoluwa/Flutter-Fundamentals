@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/gallery_localizations.dart';
 import 'package:layouts_in_flutter/MediaQueryExample.dart';
 import 'package:layouts_in_flutter/LoginExample.dart';
+import 'package:layouts_in_flutter/OrientationDemo.dart';
 // import 'package:flutter/rendering.dart';
 // import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;
 
@@ -51,8 +52,9 @@ class MyApp extends StatelessWidget {
         //     // body: Center(child: _buildListIntl())),
         //     )
         // home:MediaQueryExample()
-        home:LoginExample()
-      );
+        // The orientation changes on my phone, but it glitches
+        home: LoginExample());
+    // home: OrientationDemo());
   }
 
 // Row and Column
@@ -425,6 +427,6 @@ Widget textSection = const Padding(
 );
 
 //Flutter responsive UI
-//Develping for multiple Screen sizes and orientations in flutter 
-
+//Developing for multiple Screen sizes and orientations in flutter
+// We will define two lists , one for the master list, one for the detail view 
 
