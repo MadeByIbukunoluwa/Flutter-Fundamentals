@@ -67,6 +67,7 @@ Widget _buildHorizontalLayout() {
           child: ListView(
           scrollDirection: Axis.vertical,
           children: List.generate(6, 
+          //error here
           () {
             return Padding(
             padding: const EdgeInsets.all(22.0)
