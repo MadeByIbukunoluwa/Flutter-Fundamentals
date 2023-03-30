@@ -181,8 +181,9 @@ Errors
 
 <https://www.wafrat.com/fixing-xcrun-error-unable-to-find-utility-xcodebuild-not-a-developer-tool-or-in-path/>
 
-Creating adaptive and responsive apps
-Responsive
+# Creating adaptive and responsive apps
+
+# Responsive
 
 - Has its layout tuned for the available screen size relaying out the UI if the user resizes the window
   - Flutter allows you to create spas that self adapt to the devices screen size and orientation
@@ -193,7 +194,8 @@ Use the LayoutBuilder class
             - When the constraint changes , the build function runs , in simple terms we have two layouts depending on the orientation or screen size , and we rebuild our layout depending on these
 Use the MediaQuery.of()
     - Use the MediaQuery.of() method in your build function
-GENERAL TIPS FOR RESPONSIVE DESIGN
+
+# GENERAL TIPS FOR RESPONSIVE DESIGN
 
 - Use MediaQuery to get the real-time size of the window.
 
@@ -204,77 +206,97 @@ GENERAL TIPS FOR RESPONSIVE DESIGN
 
 The unit of measurement in flutter is logical pixels
 
-Flexible and Expanded Widgets
+# Flexible and Expanded Widgets
+
 Flexible and expanded are two widgets that you can use inside a Row, Column or flex , to give their children flexibility to expand the fill the available space but there is a main difference between them
 
-DIFFERENCE BETWEEN FLEXIBLE AND EXPANDED WIDGET
+# DIFFERENCE BETWEEN FLEXIBLE AND EXPANDED WIDGET
+
 Expanded widget requires the child to fill the available space while flexible does not
 
-MediaQuery widget
+# MediaQuery widget
+
 The MediaQuery widget will give you the global size available for your application
 LayoutBuilder Widget
+
 Meanwhile you can think of LayoutBuilder as a local MediaQuery but more focus on the size constraints so it will provide you with the parent widget’s constraints to read them and decide what to display according to them
 Orientation Builder
+
 We can detect orientation changes with the Orientation builder a widget which rebuilds the layout on Orientation Change
 OrientationBuilder has a builder function to build our layout . The builder function is called when the orientation changes . The possible values being Orientation.portrait or Orientation.landscape
 
-Building Adaptive Apps
+# Building Adaptive Apps
+
 In flutter, there are many considerations for developing platform adaptive apps but they fall into three major categories - Layout, input , idioms and norms
 Building adaptive Layouts
 
 One of the first things you must consider when bringing your app to multiple platforms is how to adapt it to various sizes and shapes on the screen that it will run on
 
-MOST USEFUL LAYOUT WIDGETS  
+# MOST USEFUL LAYOUT WIDGETS  
 
-Align
+# Align
+
 Aligns a child within itself . It takes a double value between -1 and 1 for both vertical and horizontal component
 
-AspectRatio
+# AspectRatio
+
 Attempts to size4 the child to a specific aspect ratio
 
-ConstrainedBox
+# ConstrainedBox
+
 Imposes size constraints on its child, offering control over the minimum or maximum size
 
-CustomSingleChildLayout
+# CustomSingleChildLayout
 
 - Uses a delegate function to position a single child, The delegate can determine the layout constraints and positioning for the child
 
-Expanded or Flexible -
+# Expanded or Flexible -
+
  Allows a child of a Row or Column to shrink or grow to fill nay available space
 
-FractionallySizedBox
+# FractionallySizedBox
 
 - Sizes its child to a fraction of the available space
 
-LayoutBuilder -
+# LayoutBuilder -
+
  Builds a widget that can reflow itself based on its parents size
 
-SingleChildScrollView -
+# SingleChildScrollView -
+
  Adds scrolling to a singleChild Often used with Row or Column
 
-MultiChild
-Column Row or Flex -
+# MultiChild
+
+## Column Row or Flex -
+
  Lays out children in a single horizontal or vertical run. Both Column and Row extend the Flex widget
 
-CustomMultiChildLayout -
+## CustomMultiChildLayout -
+
  Uses a delegate function to position multiple children during the layout phase
 
-Flow -
+## Flow -
+
  Similar to CustomMultiChildLayout, but more efficient because its performed during the pint phase rather than the layout phase
 
-ListView, GridView, CustomScrollView -
+## ListView, GridView, CustomScrollView -
+
  Provides scrollable lists of children
 
-Stacks -
+## Stacks -
+
  Layers and positions multiple children relative to the edges of the Stack. Functions similarly to position-fixed in CSS
 
-Table -
+## Table -
+
  uses a classic table layout algorithm for its children , combining multiple rows and columns
 
-Wrap -
+## Wrap -
+
  Displays its children in multiple horizontal or vertical runs
 
-VISUAL DENSITY
+# VISUAL DENSITY
 
 Different input devices offer various levels of precision, which require different hit areas
 
@@ -284,7 +306,8 @@ For example, making a button larger (and therefore easier to tap) on a touch dev
 When you change the VisualDensity for your MaterialApp, MaterialComponents that support it animate their densities to match. By default, both horizontal and vertical densities are set to 0.0, but you can set the densities to any negative or positive value that you want. By switching between different densities, you can easily adjust your UI:
 Not only does the container react automatically to changes in density, it also animates when it changes
 
-LayoutBuilder
+## LayoutBuilder
+
 Even though checking screen size is great for fullscreen pages or making global layout decisions , it’s not often ideal for nested subviews
 
 Often, subviews have their own internal breakpoints and care only about the space that they have available to render
@@ -294,7 +317,7 @@ LayoutBuilder allows a widget to respond to incoming local size constraints , wh
 
 With all views referencing the same shared-design system rules, they tend to look better and more consistent. Making a change or adjusting a value for a specific platform can be done in a single place, instead of using an error-prone search and replace
 
-Some common design system categories that cane represented this way are
+## Some common design system categories that cane represented this way are
 
 Animation timings
 Sizes and breakpoints
@@ -304,22 +327,26 @@ Shadows
 Strokes
 Font families and styles
 
-Tips for adaptive app development
+## Tips for adaptive app development
+
 Use desktop build targets for rapid testing
 One of the most effective ways to test adaptive interfaces is to take advantage of the desktop build targets.
 When running on a desktop, you can easily resize the window while the app is running to preview various screen sizes. This, combined with hot reload, can greatly accelerate the development of a responsive UI.
 
-Touch first
+## Touch first
+
 Focus initially on a touch first Ui
 
-Scroll Wheel
+## Scroll Wheel
+
 Scrolling widgets like ScrollView or ListView support the scroll wheel by default ,if you need to implement custom roll behaviour , you use can use Listener widget, which lets you customise how you UI reacts to the scroll wheel
 
-Idioms and norms
+## Idioms and norms
+
 The final area to consider for adaptive apps is platform standards. Each platform as its own idioms and norms ; these nominal or defect standards inform user expectations of how an application should behave
 
 Thanks in part to the web, users are accustomed to more customised experiences but reflecting these platform standards will provide significant benefits
 
-Adaptive
+# Adaptive
 
 - Adapting to run on different devices such as mobile and desktop is how to add it to the various shapes and sizes of the screen that it will work on different devices
