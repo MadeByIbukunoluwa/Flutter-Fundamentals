@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/gallery_localizations.dart';
 import 'package:layouts_in_flutter/MediaQueryExample.dart';
 import 'package:layouts_in_flutter/LoginExample.dart';
-import 'package:layouts_in_flutter/OrientationDemo.dart';
+import 'package:layouts_in_flutter/Fragments_in_flutter/OrientationDemo.dart';
+import 'package:layouts_in_flutter/Fragments_in_flutter/MasterDetailsPage.dart';
+
 // import 'package:flutter/rendering.dart';
 // import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;
 
@@ -53,8 +55,9 @@ class MyApp extends StatelessWidget {
         //     )
         // home:MediaQueryExample()
         // The orientation changes on my phone, but it glitches
-        home: LoginExample());
-    // home: OrientationDemo());
+        // home: LoginExample());
+        // home: OrientationDemo());
+        home: MasterDetailPage());
   }
 
 // Row and Column
