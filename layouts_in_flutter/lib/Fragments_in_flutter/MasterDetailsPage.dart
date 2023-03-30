@@ -41,7 +41,6 @@ class _MasterDetailsPageState extends State<MasterDetailPage> {
                 ),
                 // if the screen is large we add a detailWidget if it is not, we add an empty Container()
                 isLargeScreen ? Expanded(child: DetailWidget(selectedValue)) : Container()
-                
               ]);
           },
         ));
