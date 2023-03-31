@@ -65,6 +65,16 @@ class _MainAppScaffoldState extends State<MainAppScaffoldState> {
 }
 
 
+class _PageStack extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    int index = context.select((AppModel model) => model.selectedIndex );
+    Widget? page;
+
+    if (index == 0) Page = AdaptiveGridPage();
+  }
+}
+
 
 
 class _SideMenu extends StatelessWidget {
