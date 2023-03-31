@@ -38,6 +38,7 @@ class AppModel with ChangeNotifier {
     _touchMode = getDefaultTouchMode();
   }
 
+// Helper method for single-line state changes 
   void notify(VoidCallback stateChange) {
     stateChange.call();
     notifyListeners();
