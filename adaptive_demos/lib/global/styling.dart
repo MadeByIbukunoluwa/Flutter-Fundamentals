@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+
+//Single source of truth for styling 
+// You'll probably find it easier to style views of you create a single source of truth for styling padding,spacing, corner shapes etc
+// This can be done with helper classes 
+// The constants can then be used in the position of hard coded values 
 class Insets {
   static double medium = 5;
   static double large = 10;
