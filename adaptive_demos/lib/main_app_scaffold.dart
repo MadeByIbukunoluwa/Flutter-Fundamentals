@@ -88,9 +88,24 @@ class _SideMenu extends StatelessWidget {
           children: [
             Column(
               children: [
-                SizedBox(height: Insets.extraLarge,)
-              ],
-            )
+                SizedBox(height: Insets.extraLarge,),
+                if (showPageButtons) ...getMainMenuChildren(context),
+                SizedBox(height: Insets.extraLarge,),
+                SecondaryMenuButton(label:"Submenu Item 1 "),
+                SecondaryMenuButton(label:"Submenu Item 1 "),
+                SecondaryMenuButton(label:"Submenu Item 1 "),
+                Spacer(),
+                OutlinedButton(
+                child: Text("Logout"),
+                onPressed: _handleLogoutPressed,
+                ),
+                SizedBox(height:Insets.large,)
+              ],),
+              //Divider
+              Align(
+                alignment:Alignment.centerRight,
+                child:Container(width:1,height:double.infinity,color:Colors.blue)
+              )
           ],
         )
     );
