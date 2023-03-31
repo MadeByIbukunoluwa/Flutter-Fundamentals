@@ -1,4 +1,4 @@
-import 'package:adaptive_app_demos/global/styling.dart';
+import 'package:adaptive_demos/global/styling.dart';
 import 'package:flutter/material.dart';
 
 class StyledTextButton extends StatelessWidget {
@@ -36,18 +36,22 @@ class SecondaryMenuButton extends StatelessWidget {
 
 
 class SelectedPageButton extends StatelessWidget {
-  const SelectedPageButton({Key? key required this.onPressed, required this.label, required this.isSelected}) :super(key : key);
+  const SelectedPageButton({Key? key, required this.onPressed, required this.label, required this.isSelected}) :super(key : key);
+ final VoidCallback? onPressed;
+ final String label;
+ final bool isSelected;
 
   @override 
   Widget build(BuildContext context) {
     return Container(
-        color:isSelected ? Colors.grey.shade200 : null,
+        color: isSelected ? Colors.grey.shade200 : null,
         child: TextButton(
+        onPressed: onPressed,
           child: Container(
              width: double.infinity,
              padding: EdgeInsets.all(Insets.large),
              child:Text(label,style:TextStyles.buttonText1,maxLines:1)
-        )
+        ),
         ),
     );
   }
