@@ -7,6 +7,7 @@ enum ScreenType {
   Watch,
 }
 
+// using breakpoints we can set up a simple sysytem to determine the device type using breakpoints
 class FormFactor {
   static double desktop = 900;
   static double tablet = 600;
@@ -20,7 +21,7 @@ ScreenType getFormFactor(BuildContext context) {
   if (deviceWidth > FormFactor.handset) return ScreenType.Handset;
   return ScreenType.Watch;
 }
-
+// we could also abstract it more and define it in terms of small to large 
 enum ScreenSize { Small, Normal, Large, ExtraLarge }
 
 ScreenSize getSize(BuildContext context) {
@@ -31,3 +32,6 @@ ScreenSize getSize(BuildContext context) {
   if (deviceWidth > 300) return ScreenSize.Normal;
   return ScreenSize.Small;
 }
+
+
+// Even though checking total screen size is great for full-screen pages or making global layout decisions, it’s often not ideal for nested subviews. Often, subviews have their own internal breakpoints and care only about the space that they have available to render.
