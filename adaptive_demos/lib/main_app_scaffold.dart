@@ -59,8 +59,18 @@ class _MainAppScaffoldState extends State<MainAppScaffoldState> {
     bool useTabs = MediaQuery.of(context).size.width < FormFactor.tablet;
     bool isLoggedOut = context.select((AppModel m) => m.isLoggedIn) = false;
     return TargetedActionScope(
-       
-    )
+       shortcuts: <LogicalKeySet,Intent> {
+          LogicalKeySet(LogicalKeyboardKey.keyA) : SelectAllIntent(),
+          LogicalKeySet(LogicalKeyboardKey.keyS) : SelectNoneIntent(),
+          LogicalKeySet(LogicalKeyboardKey.delete) : DeleteIntent(),
+       }
+       ,child:WindowBorder(
+        color:Colors.white,
+        child:Material(
+            
+        )
+      )
+    );
   }
 }
 
@@ -71,8 +81,13 @@ class _PageStack extends StatelessWidget {
     int index = context.select((AppModel model) => model.selectedIndex );
     Widget? page;
 
-    if (index == 0) Page = AdaptiveGridPage();
+    if (index == 0) page = AdaptiveGridPage();
+    if (index == 1) page = AdpativeDataTablePage();
+    if (index == 2) page = AdaptiveReflowPage();
+    if (index == 3) page = FocusExamplesPage();
   }
+  return FocusTraversalGroup(child :page ?? Container());
+
 }
 
 
