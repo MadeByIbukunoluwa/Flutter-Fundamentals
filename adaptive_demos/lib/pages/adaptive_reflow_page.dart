@@ -44,16 +44,22 @@ class AdaptiveReflowPage extends StatelessWidget {
             ? Axis.horizontal
             : Axis.vertical;
         return ExpandedScrollingFlex(
-          
-        );
+            scrollViewBuilder: (axis,child) => ScrollViewWithScrollbars(axis:axis,child:child,),
+            direction:direction,
+            children: [
+              _ContentPanel1(),
+              _ContentPanel2(),
+              _ContentPanel3(),
+            ].map((c) => Expanded(child: c,)).toList());
       }
     });
   }
 }
 
-// Widget _ContentPanel1() => _ContentPanel1("Panel 1");
-// Widget _ContentPanel2() => _ContentPanel2("Panel 2");
-// Widget _ContentPanel3() => _ContentPanel3("Panel 3");
+// For demo purposes, simulate 3 different content areas 
+Widget _ContentPanel1() => _ContentPanel1("Panel 1");
+Widget _ContentPanel2() => _ContentPanel2("Panel 2");
+Widget _ContentPanel3() => _ContentPanel3("Panel 3");
 
 class _ContentPanel extends StatelessWidget {
   const _ContentPanel(this.label, {Key? key}) : super(key: key);
