@@ -23,7 +23,23 @@ class AdaptiveDataTablePage extends StatelessWidget {
               if (showCol4) _TableHeader("Column 4"),
             ],
           ),
-          Expanded(child: ScrollViewWithScroll)
+          Expanded(child: ScrollViewWithScrollbars(
+            child: Column(
+              children: items.map((i) {
+                  return Container(
+                    color:i % 2 == 0 ? Colors.grey.shade300 : null,
+                    child:Row(
+                      children: [
+                        _TableRowItem("Item $i, Column 1"),
+                        if (showCol2) _TableRowItem("Item $i,Column 2"),
+                        if (showCol3) _TableRowItem("Item $i,Column 3"),
+                        if (showCol3) _TableRowItem("Item $i,Column 4"),
+                      ],
+                    )
+                  );
+              }).toList()
+            )
+          ))
         ],
       );
     });
