@@ -67,7 +67,44 @@ class _MainAppScaffoldState extends State<MainAppScaffoldState> {
        ,child:WindowBorder(
         color:Colors.white,
         child:Material(
-            
+            child:Column(
+              children: [
+                  AppTitleBar(),
+                  Expanded(
+                    child: isLoggedOut ? LoginPage() : 
+                    Focus(
+                      autofocus: true,
+                      child:Scaffold(
+                        key:_scaffoldKey,
+                        appBar:useTabs ? _SideMenu(showPageButtons: false) : null,
+                        drawer:useTabs ? AppBar(backgroundColor: Colors.blue.shade300,) :null,
+                        body:Stack(
+                          children: [
+                            //Vertical layout with Tab controller and drawer
+                            if (useTabs)  ... [
+                              Column(
+                                children: [
+                                  Expanded(child: _PageStack()),
+                                  _TabMenu(),
+                                ],
+                                )
+                            ]
+                            else ...[
+                              Row(
+                                children: [
+                                  _SideMenu(),
+                                  Expanded(child: _PageStack(),)
+                                ]
+                            ,)
+                            ]
+                          ],
+                        )
+                      )
+                    )
+                )
+              ],
+
+          )
         )
       )
     );
