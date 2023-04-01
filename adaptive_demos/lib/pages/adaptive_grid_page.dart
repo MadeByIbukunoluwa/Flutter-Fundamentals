@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:adaptive_demos/global/device_type.dart';
 import 'package:adaptive_demos/global/styling.dart';
 import 'package:adaptive_demos/global/targeted_actions.dart';
@@ -23,7 +22,7 @@ class _AdaptiveGridPageState extends State<AdaptiveGridPage> {
     Widget buildGridItem(int index) => _GridItem(
           index,
           isSelected: _selectedItems.contains(index),
-          onPressed: _handleItemPressed;
+          onPressed: _handleItemPressed
         );
     List<Widget> listChildren = _listItems.map(buildGridItem).toList();
 
@@ -90,7 +89,7 @@ class _GridItem extends StatelessWidget {
   const _GridItem(
     this.index, {
     Key? key,
-    this.isSelected,
+    required this.isSelected,
     required this.onPressed,
   }) : super(key: key);
   final int index;
