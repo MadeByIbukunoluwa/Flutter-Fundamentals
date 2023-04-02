@@ -9,37 +9,39 @@ const big = const TextStyle(fontSize: 30);
 
 class HomePage extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => FlutterLayoutArticle(<Example>[
-        Example1(),
-        // Example2(),
-        // Example3(),
-        // Example4(),
-        // Example5(),
-        // Example6(),
-        // Example7(),
-        // Example8(),
-        // Example9(),
-        // Example10(),
-        // Example11(),
-        // Example12(),
-        // Example13(),
-        // Example14(),
-        // Example15(),
-        // Example16(),
-        // Example17(),
-        // Example18(),
-        // Example19(),
-        // Example20(),
-        // Example21(),
-        // Example22(),
-        // Example23(),
-        // Example24(),
-        // Example25(),
-        // Example26(),
-        // Example27(),
-        // Example28(),
-        // Example29(),
-      ]);
+  Widget build(BuildContext context) => FlutterLayoutArticle(
+          // Here we have a list of examples of the type <Example>
+          <Example>[
+            Example1(),
+            Example2(),
+            Example3(),
+            Example4(),
+            Example5(),
+            Example6(),
+            Example7(),
+            Example8(),
+            // Example9(),
+            // Example10(),
+            // Example11(),
+            // Example12(),
+            // Example13(),
+            // Example14(),
+            // Example15(),
+            // Example16(),
+            // Example17(),
+            // Example18(),
+            // Example19(),
+            // Example20(),
+            // Example21(),
+            // Example22(),
+            // Example23(),
+            // Example24(),
+            // Example25(),
+            // Example26(),
+            // Example27(),
+            // Example28(),
+            // Example29(),
+          ]);
 }
 
 abstract class Example extends StatelessWidget {
@@ -60,13 +62,17 @@ class FlutterLayoutArticle extends StatefulWidget {
 }
 
 class _FlutterLayoutArticleState extends State<FlutterLayoutArticle> {
+  // late / lazy initialization of varibles , they will be evaluated only when they are accessed
   late int count;
   late Widget example;
   late String code;
   late String explanation;
 
   @override
+  // we are overriding the initState widget lifecyle method to write our own logic inside it
   void initState() {
+    // this method is called whrn this obejct inserterd into the tree, here
+    // after we have initialized the varibales in the body of the class , we are now , assigning intitial values to them
     count = 1;
     code = Example1().code;
     explanation = Example1().explanation;
@@ -147,9 +153,7 @@ class _FlutterLayoutArticleState extends State<FlutterLayoutArticle> {
         isSelected: this.count == exampleNumber,
         exampleNumber: exampleNumber,
         onPressed: () {
-          showExample(
-            exampleNumber, 
-              widget.examples[exampleNumber - 1].code,
+          showExample(exampleNumber, widget.examples[exampleNumber - 1].code,
               widget.examples[exampleNumber - 1].explanation);
         },
       );
@@ -202,6 +206,170 @@ class Example1 extends Example {
   Widget build(BuildContext context) {
     return Container(
       color: red,
+    );
+  }
+}
+
+class Example2 extends Example {
+  final String code = "Container(width: 100, height: 100, color: red)";
+
+  final String explanation =
+      "The red Container wants to be 100x100, but it can't, "
+      "because the screen forces it to be exactly the same size of the screen."
+      "\n\n"
+      "So the Container fills the screen.";
+  @override
+  Widget build(BuildContext context) {
+    return Container(width: 100, height: 100, color: red);
+  }
+}
+
+class Example3 extends Example {
+  final String code = "Center(\n"
+      "   child: Container(width: 100, height: 100, color: red))";
+
+  final String explanation =
+      "The screen forces the Center to be exactly the same size of the screen."
+      "\n\n"
+      "So the Center fills the screen."
+      "\n\n"
+      "The Center tells the Container it can be any size it wants, but not bigger than the screen."
+      "\n\n"
+      "Now the Container can indeed be 100x100.";
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(width: 100, height: 100, color: red),
+    );
+  }
+}
+
+class Example4 extends Example {
+  final String code = "Align(\n"
+      "   alignment: Alignment.bottomRight,\n"
+      "   child: Container(width: 100, height: 100, color: red))";
+
+  final String explanation =
+      "This is different from the previous example in that it uses Align instead of Center."
+      "\n\n"
+      "The Align also tells the Container it can be any size it wants, but if there is empty space it will not center the Container, "
+      "but will instead align it to the bottom-right of the available space.";
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+        alignment: Alignment.bottomRight,
+        // alignment: Alignment.center,
+        child: Container(
+          width: 100,
+          height: 100,
+          color: red,
+        ));
+  }
+}
+
+class Example5 extends Example {
+  final String code = "Center(\n"
+      "   child: Container(\n"
+      "              color: red,\n"
+      "              width: double.infinity,\n"
+      "              height: double.infinity))";
+
+  final String explanation =
+      "The screen forces the Center to be exactly the same size of the screen."
+      "\n\n"
+      "So the Center fills the screen."
+      "\n\n"
+      "The Center tells the Container it can be any size it wants, but not bigger than the screen."
+      "\n\n"
+      "The Container wants to be of infinite size, but since it can't be bigger than the screen it will just fill the screen.";
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+        child: Container(
+            width: double.infinity, height: double.infinity, color: red));
+  }
+}
+
+class Example6 extends Example {
+  final String code = "Center(child: Container(color: red))";
+
+  final String explanation =
+      "The screen forces the Center to be exactly the same size of the screen."
+      "\n\n"
+      "So the Center fills the screen."
+      "\n\n"
+      "The Center tells the Container it is free to be any size it wants, but not bigger than the screen."
+      "\n\n"
+      "Since the Container has no child and no fixed size, it decides it wants to be as big as possible, so it fits the whole screen."
+      "\n\n"
+      "But why does the Container decide that? "
+      "Simply because that's a design decision by those who created the Container widget. "
+      "It could have been created differently, and you actually have to read the Container's documentation to understand what it will do depending on the circumstances. ";
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(color: red),
+    );
+  }
+}
+
+class Example7 extends Example {
+  final String code = "Center(\n"
+      "   child: Container(color: red\n"
+      "      child: Container(color: green, width: 30, height: 30)))";
+
+  final String explanation =
+      "The screen forces the Center to be exactly the same size of the screen."
+      "\n\n"
+      "So the Center fills the screen."
+      "\n\n"
+      "The Center tells the red Container it can be any size it wants, but not bigger than the screen."
+      "\n\n"
+      "Since the red Container has no size but has a child, it decides it wants to be the same size of its child."
+      "\n\n"
+      "The red Container tells its child that if can be any size it wants, but not bigger than the screen."
+      "\n\n"
+      "The child happens to be a green Container, that wants to be 30x30."
+      "\n\n"
+      "As said, the red Container will size itself to its children size, so it will also be 30x30. "
+      "No red color will be visible, since the green Container will occupy all of the red Container.";
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        color: red,
+        child: Container(
+          color: green,
+          width: 30,
+          height: 30,
+        ),
+      ),
+    );
+  }
+}
+
+class Example8 extends Example {
+  final String code = "Center(\n"
+      "   child: Container(color: red\n"
+      "      padding: const EdgeInsets.all(20.0),\n"
+      "      child: Container(color: green, width: 30, height: 30)))";
+
+  final String explanation =
+      "The red Container will size itself to its children size, but it takes its own padding into consideration. "
+      "So it will also be 30x30, plus a 20x20 padding. "
+      "The red color will be visible because of the padding, and the green Container will have the same size as the previous example.";
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child:Container(
+        padding: const EdgeInsets.all(20.0),
+        color:red,
+        child:Container(color:green,width:30,height:30,),
+      )
     );
   }
 }
