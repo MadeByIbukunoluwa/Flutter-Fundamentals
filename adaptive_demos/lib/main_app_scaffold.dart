@@ -119,7 +119,7 @@ class _PageStack extends StatelessWidget {
     Widget? page;
 
     if (index == 0) page = AdaptiveGridPage();
-    if (index == 1) page = AdpativeDataTablePage();
+    if (index == 1) page = AdaptiveDataTablePage();
     if (index == 2) page = AdaptiveReflowPage();
     if (index == 3) page = FocusExamplesPage();
   }

@@ -1,18 +1,20 @@
-import 'package:adaptive_demos/app_model.dart';
-import 'package:adaptive_demos/global/device_type.dart';
+import 'package:flutter/material.dart';
+import 'package:flextras/flextras.dart';
 import 'package:adaptive_demos/global/styling.dart';
 import 'package:adaptive_demos/widgets/scroll_view_with_scrollbars.dart';
-import 'package:flextras/flextras.dart';
-import 'package:flutter/material.dart';
+import 'package:adaptive_demos/app_model.dart';
+import 'package:adaptive_demos/global/device_type.dart';
 import 'package:provider/provider.dart';
 
 /// shows three types of layouts , a vertical for narrow screens , a wide for wide screens and a mixed mode
 
+// ignore: constant_identifier_names
 enum ReflowMode { Vertical, Horizontal, Mixed }
 
 class AdaptiveReflowPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //Decide which mode to show in 
     return LayoutBuilder(builder: (_, constraints) {
       ReflowMode reflowMode = ReflowMode.Mixed;
       if (constraints.maxWidth < 800) {
@@ -37,8 +39,8 @@ class AdaptiveReflowPage extends StatelessWidget {
             Expanded(child: _ContentPanel3()),
           ],
         );
-      } 
-      //In vertical or horizontal mode , use a ExpandedScrollingFlex with the same set of children 
+      }
+      //In vertical or horizontal mode , use a ExpandedScrollingFlex with the same set of children
       else {
         Axis direction = reflowMode == ReflowMode.Horizontal
             ? Axis.horizontal
@@ -56,10 +58,10 @@ class AdaptiveReflowPage extends StatelessWidget {
   }
 }
 
-// For demo purposes, simulate 3 different content areas 
-Widget _ContentPanel1() => _ContentPanel1("Panel 1");
-Widget _ContentPanel2() => _ContentPanel2("Panel 2");
-Widget _ContentPanel3() => _ContentPanel3("Panel 3");
+// For demo purposes, simulate 3 different content areas
+Widget _ContentPanel1() => _ContentPanel("Panel 1");
+Widget _ContentPanel2() => _ContentPanel("Panel 2");
+Widget _ContentPanel3() => _ContentPanel("Panel 3");
 
 class _ContentPanel extends StatelessWidget {
   const _ContentPanel(this.label, {Key? key}) : super(key: key);

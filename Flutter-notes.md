@@ -350,3 +350,32 @@ Thanks in part to the web, users are accustomed to more customised experiences b
 # Adaptive
 
 - Adapting to run on different devices such as mobile and desktop is how to add it to the various shapes and sizes of the screen that it will work on different devices
+
+# Understanding constraints
+
+Flutter Layout is really different from HTML Layout, make sure you memorize the following rule:
+
+## CONSTRAINTS GO DOWN.SIZES GO UP. PARENT SETS POSITION
+
+ In Detail
+ A widget gets its constraints from its parents,
+ a constraint is a set of 4 doubles, and a minimum and maxiumu height
+
+ The widget goes throigh its won list of children. One by one, the widget tells its children
+ what their constraints areand then asks each child what size it wants to be
+
+ Then, the widget positions its children (horizontally in the x-axis, and vertically in the y-axis) one by one
+
+ Finally, the widget tells its parents about its own size, (within the original constraints, of coursea)
+
+## Limitations
+
+A widget can decide its own size only within thw constraints given to it by is parent 
+This means a widget can't have any size it wants 
+
+A widget can't know and doesnt decide its own position on the screen since its the widgets parent who decides the position of the widget 
+
+Since the parentss size and position also depends on its own parent, its impossible 
+to precisely define the size and position of a widget without taking the whiole tree into consideration 
+
+If a child wants a differnt size from its parent and the parent doesn't have enough information to align it, the childs size may be ignored Be specific when defining when deifining alignment 
