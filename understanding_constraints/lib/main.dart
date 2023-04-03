@@ -870,5 +870,69 @@ class Example27 extends Example {
       }
 }
 
+class Example28 extends Example {
+  final String code = "Scaffold(\n"
+      "   body: Container(color: blue,\n"
+      "   child: Column(\n"
+      "      children: [\n"
+      "         Text('Hello!'),\n"
+      "         Text('Goodbye!')])))";
+
+      final String explanation = "The screen forces the Scaffold to be exactly the same size of the screen."
+      "\n\n"
+      "So the Scaffold fills the screen."
+      "\n\n"
+      "The Scaffold tells the Container it can be any size it wants, but not bigger than the screen."
+      "\n\n"
+      "Note: When a widget tells its child it can be smaller than a certain size, "
+      "we say the widget supplies \"loose\" constraints to its child. More on that later.";
+
+    @override 
+    Widget build (BuildContext context) {
+      return Scaffold(
+          body:Container(
+            color:blue,
+            child:Column(
+              children: [
+                Text('hello'),
+                Text('Goodbye')
+              ]
+            ,)
+          )
+      );
+    }
+}
 
 
+class Example29 extends Example {
+   final String code = "Scaffold(\n"
+      "   body: Container(color: blue,\n"
+      "   child: SizedBox.expand(\n"
+      "      child: Column(\n"
+      "         children: [\n"
+      "            Text('Hello!'),\n"
+      "            Text('Goodbye!')]))))";
+
+   final String explanation =   "If we want the Scaffold's child to be exactly the same size as the Scaffold itself, "
+      "we can wrap its child into a SizedBox.expand."
+      "\n\n"
+      "Note: When a widget tells its child it must be of a certain size, "
+      "we say the widget supplies \"tight\" constraints to its child. More on that later.";
+
+
+      @override
+      Widget build(BuildContext context) {
+        return Scaffold(
+          body:SizedBox(
+            child:Container(
+              color:blue,
+              child:Column(
+                  children: [
+                    Text('Hello'),
+                    Text('Goodbye')
+                  ],
+              ))
+            )
+        );
+      }
+}
