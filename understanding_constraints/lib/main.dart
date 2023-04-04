@@ -39,8 +39,8 @@ class HomePage extends StatelessWidget {
             Example25(),
             Example26(),
             Example27(),
-            // Example28(),
-            // Example29(),
+            Example28(),
+            Example29(),
           ]);
 }
 

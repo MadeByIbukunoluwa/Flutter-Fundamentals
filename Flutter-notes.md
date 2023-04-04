@@ -375,7 +375,41 @@ This means a widget can't have any size it wants
 
 A widget can't know and doesnt decide its own position on the screen since its the widgets parent who decides the position of the widget 
 
-Since the parentss size and position also depends on its own parent, its impossible 
+Since the parents size and position also depends on its own parent, its impossible 
 to precisely define the size and position of a widget without taking the whiole tree into consideration 
 
 If a child wants a differnt size from its parent and the parent doesn't have enough information to align it, the childs size may be ignored Be specific when defining when deifining alignment 
+
+
+When a widget tells its child that it must be of a certain size, we say that the widget supplies tight constraints tits child
+
+# Tight vs Loose Constraints
+
+## Tight Constraints 
+
+A tight constraints offers a single possibility , an exact size . In other words , a tight constraint has its maximum height equal to its minimum height
+
+If you go to Flutter’s box.dart file and search for the BoxConstraints constructors, you’ll find the following:
+content_copy
+BoxConstraints.tight(Size size)
+   : minWidth = size.width,
+     maxWidth = size.width,
+     minHeight = size.height,
+     maxHeight = size.height;
+
+## Loose Constraints
+
+A loose constraint on the other hand, sets the maximum width and height , but lets the widget be as small as it wants on other words a loose constraint has a minimum height and width both equal to zero
+
+BoxConstraints.loose(Size size)
+   : minWidth = 0.0,
+     maxWidth = size.width,
+     minHeight = 0.0,
+     maxHeight = size.height;
+
+Knowing the general layout rule is necessary, but it’s not enough.
+Each widget has a lot of freedom when applying the general rule, so there is no way of knowing what it will do by just reading the widget’s name.
+If you try to guess, you’ll probably guess wrong. You can’t know exactly how a widget behaves unless you’ve read its documentation, or studied its source-code.
+The layout source-code is usually complex, so it’s probably better to just read the documentation. However, if you decide to study the layout source-code, you can easily find it by using the navigating capabilities of your IDE.
+
+In flutter, widgets are rendered by their underlying RenderBox object, Render boxes are given constraints by their parents and size themselves within those constraints .Constraints consist of minimum and maximum widths and heights ,sizes consist of a  specific width and height
