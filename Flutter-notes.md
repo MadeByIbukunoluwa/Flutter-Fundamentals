@@ -412,4 +412,40 @@ Each widget has a lot of freedom when applying the general rule, so there is no 
 If you try to guess, you’ll probably guess wrong. You can’t know exactly how a widget behaves unless you’ve read its documentation, or studied its source-code.
 The layout source-code is usually complex, so it’s probably better to just read the documentation. However, if you decide to study the layout source-code, you can easily find it by using the navigating capabilities of your IDE.
 
+
 In flutter, widgets are rendered by their underlying RenderBox object, Render boxes are given constraints by their parents and size themselves within those constraints .Constraints consist of minimum and maximum widths and heights ,sizes consist of a  specific width and height
+
+# Adding interactivity to widgets by managing state
+
+A widget is either stateful or stateless , if a widget can change , when a user can interact with it , for example its statetful
+
+## Stateless Widget  
+
+A stateless widget never changes , eg Icon , IconButton , Text are all examples of stateless widgets they subclass StatelessWidget
+
+## Stateful Widget  
+
+A stateful widget is dynamic for example , it can changes its appearance in response to events triggered by user interactions or when it receives data
+Stateful widgets subclass StatefulWidget
+
+A widgets state is stored in a state object separating the widgets state from its appearance , the state consists of values that can change when the widgets state changes , the state object calls setState() telling the framework to redraw the widget
+
+## They are different approaches of managing state
+
+ALWAYS REMEMBER , IF IN DOUBT , START BY MANAGING STATE IN THE PARENT WIDGET
+
+There are several valid ways to make your widget interactive , that is there are different approaches of managing state there a re three common ways to manage your state
+
+- The widget manages its own state
+- The parent manages the widget’s state
+- A mix and match approach
+
+How do you decide which approach to use
+
+If the state in question is user data , for example the checked or unchecked state of a checkbox or the position of a slider then the state is best managed by the parent widget
+
+If the state in question is aesthetic , for example an animation , then the state is best managed by the widget itself
+
+## Why do always see use the 'const' keyword to improve performance
+
+<https://dev.to/pedromassango/flutter-performance-tips-1-const-constructors-4j41>

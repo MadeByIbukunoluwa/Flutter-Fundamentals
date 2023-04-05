@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class OrientationDemo extends StatefulWidget {
-  @override
+   @override
   _OrientationDemoState createState() => _OrientationDemoState();
 }
 
@@ -25,16 +25,16 @@ Widget _buildVerticalLayout() {
   return Center(
     child: ListView(
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(32.0),
+        const Padding(
+          padding: EdgeInsets.all(32.0),
           child: Icon(
             Icons.account_circle,
             size: 100.0,
           ),
         ),
         for (int index = 0; index < 8; index++)
-          Padding(
-            padding: const EdgeInsets.all(22.0),
+          const Padding(
+            padding: EdgeInsets.all(22.0),
             child: Text("Demo Data", style: TextStyle(fontSize: 32.0)),
           ),
       ],
@@ -47,16 +47,16 @@ Widget _buildHorizontalLayout() {
     child: Row(children: <Widget>[
       Expanded(
           child: Column(
-        children: <Widget>[
+        children: const <Widget>[
           Padding(
-            padding: const EdgeInsets.all(32.0),
+            padding: EdgeInsets.all(32.0),
             child: Icon(
               Icons.account_circle,
               size: 100.0,
             ),
           ),
           Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8.0),
               child: Text("name", style: TextStyle(fontSize: 32.0))),
         ],
       )),
@@ -66,8 +66,8 @@ Widget _buildHorizontalLayout() {
         children: List.generate(6,
             //error here
             (n) {
-          return Padding(
-              padding: const EdgeInsets.all(22.0),
+          return const Padding(
+              padding: EdgeInsets.all(22.0),
               child: Text(
                 "name",
                 style: TextStyle(fontSize: 32.0),

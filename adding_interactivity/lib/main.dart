@@ -14,7 +14,8 @@ class MyApp extends StatelessWidget {
         home: Scaffold(
           appBar: AppBar(title: const Text('Adding_Interactivity')),
           body: Center(
-            child: TapBoxA(),
+            // child: TParentWidget
+            child: const TapBoxBParentWidget()
             // child: FavoriteWidget(),
           ),
         ));
@@ -103,14 +104,14 @@ class _TapBoxAState extends State<TapBoxA> {
 // Parent widget manages the state and tells its child when to update
 // it can export export its state to its parent through a callback
 
-class TapBoxBContainer extends StatefulWidget {
-  const TapBoxBContainer({super.key});
+class TapBoxBParentWidget extends StatefulWidget {
+  const TapBoxBParentWidget({super.key});
 
   @override
-  State<TapBoxBContainer> createState() => _TapBoxBState();
+  State<TapBoxBParentWidget> createState() => _TapBoxBState();
 }
 
-class _TapBoxBState extends State<TapBoxBContainer> { 
+class _TapBoxBState extends State<TapBoxBParentWidget> { 
   bool _active = false;
 
   void _handleTapboxChanged(bool newValue) {
@@ -168,4 +169,6 @@ class TapBoxB extends StatelessWidget {
 
 
 // A mix and match approach 
+// For some widgets , a mix and match approach makes sense the most, in this scenario , the stateful widget
+//manages some of the state and the parent widget manages other aspects of the state 
 
