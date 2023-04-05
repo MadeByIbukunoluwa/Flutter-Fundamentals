@@ -448,4 +448,9 @@ If the state in question is aesthetic , for example an animation , then the stat
 
 ## Why do always see use the 'const' keyword to improve performance
 
-<https://dev.to/pedromassango/flutter-performance-tips-1-const-constructors-4j41>
+<https://www.fluttercampus.com/guide/187/how-to-fix-all-const-warnings-in-flutter-dart/>
+
+
+## Additional Notes 
+
+In short, because when you mark the top-most widget in the tree with a const keyword, all its inner widgets will also use a const constructor, so there is no need to add those extra const keywords. If a inner widget does not have a const constructor, then your code won't compile.
