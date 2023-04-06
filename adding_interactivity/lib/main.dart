@@ -14,10 +14,10 @@ class MyApp extends StatelessWidget {
         home: Scaffold(
           appBar: AppBar(title: const Text('Adding_Interactivity')),
           body: Center(
-            // child: TParentWidget
-            child: const TapBoxBParentWidget()
-            // child: FavoriteWidget(),
-          ),
+              // child: TParentWidget
+              child: const TapBoxBParentWidget()
+              // child: FavoriteWidget(),
+              ),
         ));
   }
 }
@@ -111,7 +111,7 @@ class TapBoxBParentWidget extends StatefulWidget {
   State<TapBoxBParentWidget> createState() => _TapBoxBState();
 }
 
-class _TapBoxBState extends State<TapBoxBParentWidget> { 
+class _TapBoxBState extends State<TapBoxBParentWidget> {
   bool _active = false;
 
   void _handleTapboxChanged(bool newValue) {
@@ -123,20 +123,16 @@ class _TapBoxBState extends State<TapBoxBParentWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        child: TapBoxB(
-          active:_active,
-          onChanged:_handleTapboxChanged,
-        ),
+      child: TapBoxB(
+        active: _active,
+        onChanged: _handleTapboxChanged,
+      ),
     );
   }
 }
 
 class TapBoxB extends StatelessWidget {
-  const TapBoxB({
-    super.key, 
-    this.active = false, 
-    required this.onChanged
-    });
+  const TapBoxB({super.key, this.active = false, required this.onChanged});
 
   final bool active;
   final ValueChanged<bool> onChanged;
@@ -145,30 +141,109 @@ class TapBoxB extends StatelessWidget {
     onChanged(!active);
   }
 
-  @override 
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: _handleTap,
-        child: Container(
-          width:200.0,
-          height:200.0,
+      onTap: _handleTap,
+      child: Container(
+          width: 200.0,
+          height: 200.0,
           decoration: BoxDecoration(
-            color:active ? Colors.lightGreen[700] :Colors.grey[600]
-          ),
-          child:Center(
-            child:Text(
-                active ? 'Active' : 'Inactive',
-                style:const TextStyle(fontSize: 32.0,color:Colors.white)
-            )
-          )
-        ),
+              color: active ? Colors.lightGreen[700] : Colors.grey[600]),
+          child: Center(
+              child: Text(active ? 'Active' : 'Inactive',
+                  style:
+                      const TextStyle(fontSize: 32.0, color: Colors.white)))),
     );
   }
 }
 
-
-
-// A mix and match approach 
+// Case 3 - A mix and match approach
 // For some widgets , a mix and match approach makes sense the most, in this scenario , the stateful widget
-//manages some of the state and the parent widget manages other aspects of the state 
+//manages some of the state and the parent widget manages other aspects of the state
 
+class TapBoxCParentWidget extends StatefulWidget {
+  const TapBoxCParentWidget({super.key});
+
+  @override
+  State<TapBoxCParentWidget> createState() => TapBoxCParentWidgetState();
+}
+
+class TapBoxCParentWidgetState extends State<TapBoxCParentWidget> {
+  bool _active = false;
+
+  void _handleTapBoxChanged(bool newValue) {
+    setState(() {
+      _active = newValue;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      child: TapBoxC(
+        active: _active,
+        onChanged: _handleTapBoxChanged,
+      ),
+    );
+  }
+}
+
+class TapBoxC extends StatefulWidget {
+  const TapBoxC({super.key, this.active = false, required this.onChanged});
+
+  final bool active;
+  final ValueChanged<bool> onChanged;
+
+  @override
+  State<TapBoxC> createState() => _TapBoxCState();
+}
+
+class _TapBoxCState extends State<TapBoxC> {
+  bool _highlight = false;
+
+  void _handleTapDown(TapDownDetails details) {
+    setState(() {
+      _highlight = true;
+    });
+  }
+
+  void _handleTapUp(TapUpDetails details) {
+    setState(() {
+      _highlight = false;
+    });
+  }
+
+  void _handleTapCancel() {
+    setState(() {
+      _highlight = false;
+    });
+  }
+
+  void _handleTap() {
+    widget.onChanged(!widget.active);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+        onTapDown: _handleTapDown,
+        onTapUp: _handleTapUp,
+        onTap: _handleTap,
+        onTapCancel: _handleTapCancel,
+        child: Container(
+          width: 200.0,
+          height: 200.0,
+          decoration: BoxDecoration(
+              color: widget.active ? Colors.lightGreen[700] : Colors.grey[600],
+              border: _highlight
+                  ? Border.all(color: Colors.teal[700]!, width: 10.0)
+                  : null),
+          child: Center(
+              child: Text(
+            widget.active ? 'Active' : 'Inactive',
+            style: const TextStyle(fontSize: 32.0, color: Colors.white),
+          )),
+        ));
+  }
+}
