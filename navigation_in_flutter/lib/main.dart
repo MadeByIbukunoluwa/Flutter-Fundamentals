@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,11 +12,29 @@ class Nav2App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomeScreen(), 
-    // routes: {
-    //   '/': (context) => HomeScreen(),
-    //   '/details': (context) => DetailScreen(),
-    // }
+      home: HomeScreen(),
+      // routes: {
+      //   '/': (context) => HomeScreen(),
+      //   '/details': (context) => DetailScreen(),
+      // }
+      // For the named routes, they must be predefined although you can arguments to a named route, you can't parse arguments from the route itself for example, if the app is run on the wen you can't parse the ID from the route like details/:id
+      // you can advaced name routes with onGenerate
+      //Here, settings is an instance of RouteSettings. The name and arguments fields are the values that were provided when Navigator.pushNamed was called, or what initialRoute is set to.
+      onGenerateRoute: (settings) {
+        //for handling '/
+        if (settings.name == '/') {
+          return MaterialPageRoute(builder: (context) => HomeScreen());
+        }
+        //for handling 'details/:id
+        var uri = Uri.parse(settings.name);
+
+        if (uri.pathSegments.length == 2 &&
+            uri.pathSegments.first == 'details') {
+          var id = uri.pathSegments[1];
+          return MaterialPageRoute(builder: (context) => DetailScreen(id: id));
+        }
+        return MaterialPageRoute(builder: (context) => UnknownScreen());
+      },
     );
   }
 }
@@ -41,19 +60,56 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
+// class DetailScreen extends StatelessWidget {
+//   const DetailScreen({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//         appBar: AppBar(),
+//         body: Center(
+//             child: ElevatedButton(
+//           child: Text('Pop!'),
+//           onPressed: () {
+//             Navigator.pop(context);
+//           },
+//         )));
+//   }
+// }
 class DetailScreen extends StatelessWidget {
-  const DetailScreen({super.key});
+  String? id;
+
+  DetailScreen({this.id});
+  // const DetailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(),
         body: Center(
-            child: ElevatedButton(
-          child: Text('Pop!'),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        )));
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+            Text('Viewing details for item $id'),
+            ElevatedButton(
+              child: Text('Pop!'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            )
+          ]),
+        ));
+  }
+}
+
+class UnknownScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Center(
+        child: Text('404')
+      ),
+    );
   }
 }
