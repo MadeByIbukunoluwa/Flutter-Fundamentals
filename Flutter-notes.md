@@ -139,7 +139,7 @@ Container Adds padding, margins, borders, background colour, or other decoration
 
 # ListView
 
-    - Lays widgets out in a scrollable list
+    - Lays widgets out in a scrollable list 
 
 - A column like widget automatically provides scrolling wen its content is too long for its render
   - Less configurable than Column but easier to use and supports scrolling
@@ -454,3 +454,38 @@ If the state in question is aesthetic , for example an animation , then the stat
 ## Additional Notes
 
 In short, because when you mark the top-most widget in the tree with a const keyword, all its inner widgets will also use a const constructor, so there is no need to add those extra const keywords. If a inner widget does not have a const constructor, then your code won't compile.
+
+## Assets and Images 
+
+Flutter apps can use both code and assets . An asset is a file bundled and deployed with your app, 
+Flutter uses the pubspec.yaml located at tht root of the app to identify assets required by tha app
+
+
+Loading Images 
+Flutter can load resolution-appropriate images for the current device ratio
+
+you can sepcify the device pixel ratio that a particular image or images are intended for 
+
+to load an image ue the AssetImage class in a widget's build method 
+
+You can also share assets with te underlying platform 
+
+# Material Design  
+
+Material Design is an open source design sysytem built and supported by Gogle supporters and developers
+
+# Navigation and Routing  
+
+Flutter provides a complete sysytem for navigating between screens and handling deep links.Small applications without deeplinking can use Navigator , while more complex applications with more navigation requirements require Router to corrctly handle deeplinks in Android and ios , and also stay in sync with the browser 
+
+Navigator.push(widget) when it is called , it places the called widget on top of the initial widget 
+
+note - you can also use named routes , but it is not recommended for most apllications 
+
+Flutter applications with advacned rotuing requirements should use a package such as go_router
+
+
+# Publishers Glossary  
+
+A file named pubspec.lock that specifies the concrete versions and other information for every immediate and transitive dependency a package relies on
+

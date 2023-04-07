@@ -13,9 +13,9 @@ class MyApp extends StatelessWidget {
         title: 'Adding_Interactivity',
         home: Scaffold(
           appBar: AppBar(title: const Text('Adding_Interactivity')),
-          body: Center(
+          body: const Center(
               // child: TParentWidget
-              child: const TapBoxBParentWidget()
+              child: TapBoxBParentWidget()
               // child: FavoriteWidget(),
               ),
         ));
