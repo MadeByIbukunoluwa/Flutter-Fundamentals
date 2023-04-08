@@ -484,7 +484,11 @@ note - you can also use named routes , but it is not recommended for most apllic
 
 Flutter applications with advacned rotuing requirements should use a package such as go_router
 
+Don't invoke 'print' in production code. Try using a logging framework. - import debugPrint or log from dart:developer
 
+Navigator 2.0 
+
+The navigator 2.0 API adds new calsse to the frameworl in order to make the apps screens a function of the app state and to provide the ability to parse routes from the underlying platform (like weURLs)
 # Publishers Glossary  
 
 A file named pubspec.lock that specifies the concrete versions and other information for every immediate and transitive dependency a package relies on

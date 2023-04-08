@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'dart:developer';
 
 void main() {
   runApp(const Nav2App());
@@ -18,19 +19,22 @@ class Nav2App extends StatelessWidget {
       //   '/details': (context) => DetailScreen(),
       // }
       // For the named routes, they must be predefined although you can arguments to a named route, you can't parse arguments from the route itself for example, if the app is run on the wen you can't parse the ID from the route like details/:id
-      // you can advaced name routes with onGenerate
+      // you can advanced name routes with onGenerate
       //Here, settings is an instance of RouteSettings. The name and arguments fields are the values that were provided when Navigator.pushNamed was called, or what initialRoute is set to.
       onGenerateRoute: (settings) {
         //for handling '/
         if (settings.name == '/') {
-          return MaterialPageRoute(builder: (context) => HomeScreen());
+          return MaterialPageRoute(builder: (context) => const HomeScreen());
         }
         //for handling 'details/:id
-        var uri = Uri.parse(settings.name);
+        // typecasted a non nullable String to a String
+
+        var uri = Uri.parse(settings.name as String);
 
         if (uri.pathSegments.length == 2 &&
             uri.pathSegments.first == 'details') {
           var id = uri.pathSegments[1];
+          debugPrint(id);
           return MaterialPageRoute(builder: (context) => DetailScreen(id: id));
         }
         return MaterialPageRoute(builder: (context) => UnknownScreen());
@@ -79,7 +83,7 @@ class HomeScreen extends StatelessWidget {
 class DetailScreen extends StatelessWidget {
   String? id;
 
-  DetailScreen({this.id});
+  DetailScreen({this.id,super.key});
   // const DetailScreen({super.key});
 
   @override
@@ -87,9 +91,7 @@ class DetailScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(),
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             Text('Viewing details for item $id'),
             ElevatedButton(
               child: Text('Pop!'),
@@ -107,9 +109,7 @@ class UnknownScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Center(
-        child: Text('404')
-      ),
+      body: Center(child: Text('404')),
     );
   }
 }
