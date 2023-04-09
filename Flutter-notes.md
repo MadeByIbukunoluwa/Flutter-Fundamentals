@@ -489,6 +489,15 @@ Don't invoke 'print' in production code. Try using a logging framework. - import
 Navigator 2.0 
 
 The navigator 2.0 API adds new calsse to the frameworl in order to make the apps screens a function of the app state and to provide the ability to parse routes from the underlying platform (like weURLs)
+
+Page — an immutable object used to set the navigator’s history stack.
+Router — configures the list of pages to be displayed by the Navigator. Usually this list of pages changes based on the underlying platform, or on the state of the app changing.
+RouteInformationParser, which takes the RouteInformation from RouteInformationProvider and parses it into a user-defined data type.
+RouterDelegate — defines app-specific behavior of how the Router learns about changes in app state and how it responds to them. Its job is to listen to the RouteInformationParser and the app state and build the Navigator with the current list of Pages.
+BackButtonDispatcher — reports back button presses to the Router
+
+# Pages 
+The Navigator has a new pages argument in its constructor. If the list of Page obejct changes, Navigator updates the stack of routes to match 
 # Publishers Glossary  
 
 A file named pubspec.lock that specifies the concrete versions and other information for every immediate and transitive dependency a package relies on
