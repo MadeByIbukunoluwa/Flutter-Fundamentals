@@ -496,6 +496,9 @@ RouteInformationParser, which takes the RouteInformation from RouteInformationPr
 RouterDelegate — defines app-specific behavior of how the Router learns about changes in app state and how it responds to them. Its job is to listen to the RouteInformationParser and the app state and build the Navigator with the current list of Pages.
 BackButtonDispatcher — reports back button presses to the Router
 
+# keys
+Without a unique key , the framework cant determine whe to show a transition animation between different pages 
+
 # Pages 
 The Navigator has a new pages argument in its constructor. If the list of Page obejct changes, Navigator updates the stack of routes to match 
 # Publishers Glossary  
