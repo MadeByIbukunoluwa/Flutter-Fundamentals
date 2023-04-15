@@ -240,7 +240,7 @@ Aligns a child within itself . It takes a double value between -1 and 1 for both
 
 # AspectRatio
 
-Attempts to size4 the child to a specific aspect ratio
+Attempts to size the child to a specific aspect ratio
 
 # ConstrainedBox
 
