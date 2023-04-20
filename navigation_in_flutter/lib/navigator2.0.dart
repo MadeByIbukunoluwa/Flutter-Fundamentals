@@ -116,7 +116,8 @@ class BooksApp extends StatefulWidget {
 
 class _BooksAppState extends State<BooksApp> {
   BookRouterDelegate _routerDelegate = BookRouterDelegate();
-  BookRouteInformationParser _routeInformationParser = BookRouteInformationParser();
+  BookRouteInformationParser _routeInformationParser =
+      BookRouteInformationParser();
 
   @override
   Widget build(BuildContext context) {
@@ -129,53 +130,53 @@ class _BooksAppState extends State<BooksApp> {
 }
 
 class BookRouteInformationParser extends RouteInformationParser<BookRoutePath> {
-
   @override
-  Future<BookRoutePath> parseRouteInformation( RouteInformation routeInformation) async {
+  Future<BookRoutePath> parseRouteInformation(
+      RouteInformation routeInformation) async {
     final uri = Uri.parse(routeInformation.location as String);
 
     // Handle '/'
     if (uri.pathSegments.length == 0) {
       return BookRoutePath.home();
     }
-      //Handle 'book/:id'
+    //Handle 'book/:id'
     if (uri.pathSegments.length == 2) {
-        if (uri.pathSegments[0] != 'book') return BookRoutePath.unknown();
-        var remaining = uri.pathSegments[1];
-        var id = int.tryParse(remaining);
-        if (id == null) return BookRoutePath.unknown();
-        return BookRoutePath.details(id);
+      if (uri.pathSegments[0] != 'book') return BookRoutePath.unknown();
+      var remaining = uri.pathSegments[1];
+      var id = int.tryParse(remaining);
+      if (id == null) return BookRoutePath.unknown();
+      return BookRoutePath.details(id);
     }
     return BookRoutePath.unknown();
   }
 
-@override 
-RouteInformation? restoreRouteInformation(BookRoutePath path) {
-  if (path.isUnknown) {
-    return RouteInformation(location: '/404');
+  @override
+  RouteInformation? restoreRouteInformation(BookRoutePath path) {
+    if (path.isUnknown) {
+      return RouteInformation(location: '/404');
+    }
+    if (path.isHomePage) {
+      return RouteInformation(location: '/');
+    }
+    if (path.isDetailsPage) {
+      return RouteInformation(location: '/book/${path.id}');
+    }
+    return null;
   }
-  if (path.isHomePage) {
-    return RouteInformation(location: '/')
-  }
-  if (path.isDetailsPage) {
-    return RouteInformation(location:'/book/${path.id}');
-  }
-  return null;
 }
 
-}
 class BookRouterDelegate extends RouterDelegate<BookRoutePath>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin<BookRoutePath> {
   final GlobalKey<NavigatorState> navigatorKey;
 
-  Book _selectedBook;
+  Book? _selectedBook;
 
   bool show404 = false;
 
   List<Book> books = [
-    Book('Left hand of darkness','Ursula K. Le Guin'),
+    Book('Left hand of darkness', 'Ursula K. Le Guin'),
     Book('Too Like finance, Technology and exercise', 'Ibukunoluwa Akintobi'),
-    Book('Kindred','Harry Potter'),
+    Book('Kindred', 'Harry Potter'),
   ];
 
   BookRouterDelegate() : navigatorKey = GlobalKey<NavigatorState>();
@@ -184,26 +185,31 @@ class BookRouterDelegate extends RouterDelegate<BookRoutePath>
     if (show404) {
       return BookRoutePath.unknown();
     }
-    return _selectedBook == null ? BookRoutePath.home() : BookRoutePath.details(books.indexOf(_selectedBook));
+    return _selectedBook == null
+        ? BookRoutePath.home()
+        : BookRoutePath.details(books.indexOf(_selectedBook as Book));
   }
+
   @override
   Widget build(BuildContext context) {
     return Navigator(
-      key:navigatorKey,
+      key: navigatorKey,
       pages: [
         MaterialPage(
-          key:ValueKey('BooksListPage'),
+          key: ValueKey('BooksListPage'),
           child: BooksListScreen(
             books: books,
             onTapped: _handleBookTapped,
-         ),
-       ),
-         if (show404) MaterialPage(key: ValueKey('Unknown Page'),child: UnknownScreen())
-         else if (_selectedBook != null) BookDetailsPage(book: _selectedBook)
+          ),
+        ),
+        if (show404)
+          MaterialPage(key: ValueKey('Unknown Page'), child: UnknownScreen())
+        else if (_selectedBook != null)
+          BookDetailsPage(book: _selectedBook as Book)
       ],
       onPopPage: (route, result) {
         if (!route.didPop(result)) {
-          return false ;
+          return false;
         }
 
         //Update the list of pages by setting _selectedBook to null
@@ -224,21 +230,20 @@ class BookRouterDelegate extends RouterDelegate<BookRoutePath>
       return;
     }
     if (path.isDetailsPage) {
-      if (path.id < 0 || path.id > books.length - 1 ) {
-          show404 = true;
-          return;
+      if (path.id! < 0 || path.id! > books.length - 1) {
+        show404 = true;
+        return;
       }
-      _selectedBook = books[path.id];
-    }
-    else {
+      _selectedBook = books[path.id!];
+    } else {
       _selectedBook = null;
     }
     show404 = false;
   }
 
   void _handleBookTapped(Book book) {
-      _selectedBook = book;
-      notifyListeners();
+    _selectedBook = book;
+    notifyListeners();
   }
 }
 
@@ -249,11 +254,10 @@ class BookDetailsPage extends Page {
 
   Route createRoute(BuildContext context) {
     return MaterialPageRoute(
-      settings: this,
-      builder: (BuildContext context) {
-        return BookDetailsScreen(book: book);
-      }
-    );
+        settings: this,
+        builder: (BuildContext context) {
+          return BookDetailsScreen(book: book);
+        });
   }
 }
 
@@ -267,14 +271,13 @@ class BookRoutePath {
 
   BookRoutePath.details(this.id) : isUnknown = false;
 
-  BookRoutePath.unknown() 
-        : id = null,
-          isUnknown = true;
+  BookRoutePath.unknown()
+      : id = null,
+        isUnknown = true;
 
   bool get isHomePage => id == null;
 
   bool get isDetailsPage => id != null;
-
 }
 
 // The generic type defined on RouterDelegate is BookRoutePath which containa all the state neeeded to decid whihc pages to show
@@ -282,73 +285,61 @@ class BookRoutePath {
 // we will need to move some logic from _BooksAppState to BookRouterDelegate and create a Globalkey
 // here the app state is store directly on the RouterDelegate, but could e separated into another classs
 
-
 class BooksListScreen extends StatelessWidget {
-
   final List<Book> books;
   final ValueChanged<Book> onTapped;
 
-  const BooksListScreen({super.key,required this.books, required this.onTapped});
-
+  const BooksListScreen(
+      {super.key, required this.books, required this.onTapped});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body:ListView(
-        children: [
-          for (var book in books) 
-            ListTile(
-              title: Text(book.title),
-              subtitle: Text(book.author),
-              onTap: () => onTapped(book),
-            )
-        ],
-      )
-    );
+        appBar: AppBar(),
+        body: ListView(
+          children: [
+            for (var book in books)
+              ListTile(
+                title: Text(book.title),
+                subtitle: Text(book.author),
+                onTap: () => onTapped(book),
+              )
+          ],
+        ));
   }
 }
-
-
-
-
 
 class BookDetailsScreen extends StatelessWidget {
   final Book book;
 
-  BookDetailsScreen({required this.book,super.key});
+  BookDetailsScreen({required this.book, super.key});
 
-  @override 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body:Padding(
-        padding: const EdgeInsets.all(8.0),
-        child:Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (book != null) ... [
-              Text(book.title, style: Theme.of(context).textTheme.headlineMedium),
-              Text(book.author, style: Theme.of(context).textTheme.headlineSmall)
-            ]
-          ]
-        )
-      )
-    );
+        appBar: AppBar(),
+        body: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              if (book != null) ...[
+                Text(book.title,
+                    style: Theme.of(context).textTheme.headlineMedium),
+                Text(book.author,
+                    style: Theme.of(context).textTheme.headlineSmall)
+              ]
+            ])));
   }
 }
-
-
-
-
 
 class UnknownScreen extends StatelessWidget {
   const UnknownScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body:const Center(child: Text('404'),)
-    );
+        appBar: AppBar(),
+        body: const Center(
+          child: Text('404'),
+        ));
   }
 }
