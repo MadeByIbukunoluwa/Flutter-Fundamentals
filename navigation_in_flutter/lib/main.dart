@@ -1,9 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer';
+import 'package:navigation_in_flutter/navigator2.0.dart';
 
 void main() {
-  runApp(const Nav2App());
+  // runApp(const Nav2App());
+  runApp(const BooksApp());
 }
 // note - you can also use named routes , but it is not recommended for most apllications
 
@@ -83,7 +85,7 @@ class HomeScreen extends StatelessWidget {
 class DetailScreen extends StatelessWidget {
   String? id;
 
-  DetailScreen({this.id,super.key});
+  DetailScreen({this.id, super.key});
   // const DetailScreen({super.key});
 
   @override
