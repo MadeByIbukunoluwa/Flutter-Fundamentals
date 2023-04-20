@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:navigation_in_flutter/main.dart';
 
+// https://medium.com/flutter/learning-flutters-new-navigation-and-routing-system-7c9068155ade
+
 void main() {
   runApp(const BooksApp());
 }
@@ -194,6 +196,7 @@ class BookRouterDelegate extends RouterDelegate<BookRoutePath>
   Widget build(BuildContext context) {
     return Navigator(
       key: navigatorKey,
+      // transitionDelegate: transitionDelegate,
       pages: [
         MaterialPage(
           key: ValueKey('BooksListPage'),
@@ -343,3 +346,44 @@ class UnknownScreen extends StatelessWidget {
         ));
   }
 }
+
+// Custom implementation of transition delegate
+
+
+// The transition delegate resolve mwthod is not being overriden properly 
+
+// TransitionDelegate transitionDelegate = NoAnimationTransitionDelegate();
+
+// class NoAnimationTransitionDelegate extends TransitionDelegate<void> {
+  
+//   @override
+//   Iterable<RouteTransitionRecord> resolve({
+//     required List<RouteTransitionRecord> newPageRouteHistory,
+//     required Map<RouteTransitionRecord, RouteTransitionRecord> locationToExitingPageRoute, 
+//     required Map<RouteTransitionRecord, List<RouteTransitionRecord>> pageRouteToPagelessRoutes,
+//   }) {
+//     final results = <RouteTransitionRecord>[];
+
+//     for (final pageRoute in newPageRouteHistory) {
+//       if (pageRoute.isWaitingForEnteringDecision) {
+//         pageRoute.markForAdd();
+//       }
+//       results.add(pageRoute);
+//     }
+
+//     for (final exitingPageRoute in locationToExitingPageRoute.values) {
+//       if (exitingPageRoute.isWaitingForEnteringDecision) {
+//         exitingPageRoute.markForRemove();
+//         final pagelessRoutes = pageRouteToPagelessRoutes[exitingPageRoute];
+
+//         if (pagelessRoutes != null) {
+//           for (final pagelessRoute in pagelessRoutes) {
+//             pagelessRoute.markForRemove();
+//           }
+//         }
+//       }
+//       results.add(exitingPageRoute);
+//     }
+//     return results;
+//   }
+// }
