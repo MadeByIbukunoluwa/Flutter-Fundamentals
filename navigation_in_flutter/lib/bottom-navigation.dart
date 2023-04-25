@@ -73,8 +73,36 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with TickerProviderStateMixin<HomePage> {
-  int _currentIndex = 0;
+  ///
+  ///Cross Fading Destination Views
+  /// Stack the destinations views, fade in the selected view, fade out the unselected view
+  /// Once a destination has faded out we'll move it Offstage so that it's no longer rendered or hit tested
+  /// To ensure that moving view offstage preserves their state, give them a Global Key
+  ///
+  List<AnimationController> _faders;
+  List<Key> _destinationKeys;
 
+  int _currentIndex = 0;
+  
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  _faders = allDestinations.map<AnimationController>((Destination destination) {
+    return AnimationController(vsync: this,duration:Duration(milliseconds: 200))
+  }).toList();
+
+  _faders[_currentIndex].value = 1.0;
+
+  _destinationKeys = List<Key>.generate(allDestinations.length, (int index) => GlobalKey()).toList();
+
+  @override 
+  void dispose () {
+    for (AnimationController controller in _faders)
+        controller.dispose();
+      super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,6 +132,9 @@ class _HomePageState extends State<HomePage>
   }
 }
 
+/**
+ * Tapping any list item causes it to push a '/text route which will contain a TextPage widget
+ */
 class ListPage extends StatelessWidget {
   const ListPage({Key key, required this.destination}) : super(key: key);
 
