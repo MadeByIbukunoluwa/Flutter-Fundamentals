@@ -2,10 +2,14 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'package:navigation_in_flutter/navigator2.0.dart';
+import 'package:navigation_in_flutter/bottom-navigation.dart';
 
 void main() {
   // runApp(const Nav2App());
-  runApp(const BooksApp());
+  // runApp(const BooksApp());
+  //doesn't work throws a ErrorSummary('No MediaQuery widget ancestor found.'), error
+  // runApp(DestinationView(destination: Destination('somewhere', Icons.account_tree, Colors.blue)));
+  runApp(MaterialApp(home: HomePage()));
 }
 // note - you can also use named routes , but it is not recommended for most apllications
 
