@@ -324,8 +324,7 @@ class Product {
 typedef CartChangeCallback = Function(Product product, bool inCart);
 
 class ShoppingListItem extends StatelessWidget {
-  ShoppingListItem(
-      {required this.product,
+  ShoppingListItem({required this.product,
       required this.inCart,
       required this.onCartChanged})
       : super(key: ObjectKey(product));
