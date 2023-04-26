@@ -79,6 +79,8 @@ class _HomePageState extends State<HomePage>
   /// Once a destination has faded out we'll move it Offstage so that it's no longer rendered or hit tested
   /// To ensure that moving view offstage preserves their state, give them a Global Key
   ///
+  ///
+  ///
   List<AnimationController> _faders;
   List<Key> _destinationKeys;
 
@@ -87,7 +89,6 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     super.initState();
-  }
 
   _faders = allDestinations.map<AnimationController>((Destination destination) {
     return AnimationController(vsync: this,duration:Duration(milliseconds: 200))
@@ -96,6 +97,8 @@ class _HomePageState extends State<HomePage>
   _faders[_currentIndex].value = 1.0;
 
   _destinationKeys = List<Key>.generate(allDestinations.length, (int index) => GlobalKey()).toList();
+  }
+
 
   @override 
   void dispose () {
@@ -105,30 +108,52 @@ class _HomePageState extends State<HomePage>
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-          top: false,
-          child: IndexedStack(
-            index: _currentIndex,
-            children: allDestinations.map<Widget>((Destination destination) {
-              return DestinationView(destination: destination);
-            }).toList(),
-          )),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        items: allDestinations.map((destination) {
-          return BottomNavigationBarItem(
-              icon: Icon(destination.icon),
-              backgroundColor: destination.color,
-              label: destination.title);
-        }).toList(),
-      ),
-    );
+    //Normal version
+    // return Scaffold(
+    //   body: SafeArea(
+    //       top: false,
+    //       child: IndexedStack(
+    //         index: _currentIndex,
+    //         children: allDestinations.map<Widget>((Destination destination) {
+    //           return DestinationView(destination: destination);
+    //         }).toList(),
+    //       )),
+    //   bottomNavigationBar: BottomNavigationBar(
+    //     currentIndex: _currentIndex,
+    //     onTap: (index) {
+    //       setState(() {
+    //         _currentIndex = index;
+    //       });
+    //     },
+    //     items: allDestinations.map((destination) {
+    //       return BottomNavigationBarItem(
+    //           icon: Icon(destination.icon),
+    //           backgroundColor: destination.color,
+    //           label: destination.title);
+    //     }).toList(),
+    //   ),
+    // );
+    //Cross Fading Demo 
+      return Scaffold(
+        body:SafeArea(
+          top:false,
+          child: Stack(
+             fit:StackFit.expand,
+             children: allDestinations.map((Destination destination) {
+                final Widget view = FadeTransition(
+                  opacity: _faders[destination].drive(CurveTween(curve: Curves.fastOutSlowIn)),
+                  child:KeyedSubtree(
+                    key: _destinationKeys[destination],
+                    child:DestinationView(
+                      destination: destination;
+                    )
+                  )
+                );
+              
+             }).toList()
+          )
+        )
+      );
   }
 }
 
