@@ -531,3 +531,5 @@ The Navigator has a new pages argument in its constructor. If the list of Page o
 # Publishers Glossary
 
 A file named pubspec.lock that specifies the concrete versions and other information for every immediate and transitive dependency a package relies on
+
+[non nullable instance field must be initialized](<https://stackoverflow.com/questions/67034475/non-nullable-instance-field-must-be-initialized>)
