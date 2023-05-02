@@ -373,19 +373,18 @@ Flutter Layout is really different from HTML Layout, make sure you memorize the 
 A widget can decide its own size only within thw constraints given to it by is parent
 This means a widget can't have any size it wants
 
-A widget can't know and doesnt decide its own position on the screen since its the widgets parent who decides the position of the widget 
+A widget can't know and doesnt decide its own position on the screen since its the widgets parent who decides the position of the widget
 
-Since the parents size and position also depends on its own parent, its impossible 
-to precisely define the size and position of a widget without taking the whiole tree into consideration 
+Since the parents size and position also depends on its own parent, its impossible
+to precisely define the size and position of a widget without taking the whiole tree into consideration
 
-If a child wants a differnt size from its parent and the parent doesn't have enough information to align it, the childs size may be ignored Be specific when defining when deifining alignment 
-
+If a child wants a differnt size from its parent and the parent doesn't have enough information to align it, the childs size may be ignored Be specific when defining when deifining alignment
 
 When a widget tells its child that it must be of a certain size, we say that the widget supplies tight constraints tits child
 
 # Tight vs Loose Constraints
 
-## Tight Constraints 
+## Tight Constraints
 
 A tight constraints offers a single possibility , an exact size . In other words , a tight constraint has its maximum height equal to its minimum height
 
@@ -411,7 +410,6 @@ Knowing the general layout rule is necessary, but it’s not enough.
 Each widget has a lot of freedom when applying the general rule, so there is no way of knowing what it will do by just reading the widget’s name.
 If you try to guess, you’ll probably guess wrong. You can’t know exactly how a widget behaves unless you’ve read its documentation, or studied its source-code.
 The layout source-code is usually complex, so it’s probably better to just read the documentation. However, if you decide to study the layout source-code, you can easily find it by using the navigating capabilities of your IDE.
-
 
 In flutter, widgets are rendered by their underlying RenderBox object, Render boxes are given constraints by their parents and size themselves within those constraints .Constraints consist of minimum and maximum widths and heights ,sizes consist of a  specific width and height
 
@@ -459,14 +457,14 @@ In short, because when you mark the top-most widget in the tree with a const key
 Flutter apps can use both code and assets . An asset is a file bundled and deployed with your app, 
 Flutter uses the pubspec.yaml located at tht root of the app to identify assets required by tha app
 
-Loading Images 
+Loading Images
 Flutter can load resolution-appropriate images for the current device ratio
 
-you can sepcify the device pixel ratio that a particular image or images are intended for 
+you can sepcify the device pixel ratio that a particular image or images are intended for
 
-to load an image ue the AssetImage class in a widget's build method 
+to load an image ue the AssetImage class in a widget's build method
 
-You can also share assets with te underlying platform 
+You can also share assets with te underlying platform
 
 # Material Design  
 
@@ -474,11 +472,11 @@ Material Design is an open source design sysytem built and supported by Gogle su
 
 # Navigation and Routing  
 
-Flutter provides a complete sysytem for navigating between screens and handling deep links.Small applications without deeplinking can use Navigator , while more complex applications with more navigation requirements require Router to corrctly handle deeplinks in Android and ios , and also stay in sync with the browser 
+Flutter provides a complete sysytem for navigating between screens and handling deep links.Small applications without deeplinking can use Navigator , while more complex applications with more navigation requirements require Router to corrctly handle deeplinks in Android and ios , and also stay in sync with the browser
 
-Navigator.push(widget) when it is called , it places the called widget on top of the initial widget 
+Navigator.push(widget) when it is called , it places the called widget on top of the initial widget
 
-note - you can also use named routes , but it is not recommended for most apllications 
+note - you can also use named routes , but it is not recommended for most apllications
 
 Flutter applications with advacned rotuing requirements should use a package such as go_router
 
@@ -499,9 +497,9 @@ BackButtonDispatcher — reports back button presses to the Router
 A flutter Navigator manages a stack of Route Objects and a stack of overlays that are displayed on top.
 Routes aren't widgets , they are objects that have a widget.A routes widget can be a gully opaque page or a smaller user interface part like a dialog or menu
 
-## Quick Facts to keep in mind 
+## Quick Facts to keep in mind
 
-Navigators have push and pop methods for managing the stack of routes 
+Navigators have push and pop methods for managing the stack of routes
 
 Navigators support lazily creating routes. Lazily created routes are identified by a path name.
 
@@ -509,32 +507,33 @@ By default the navigator displays the route called ‘/’.
 
 Any widget can push or pop routes on its navigator ancestor with the static Navigator.push and Navigator.pop methods.
 
-Routes are lazily generated by the navigators onGenerateRoute callback and each route's wdget is constructed by a MaterialPageRoute  builder callback 
+Routes are lazily generated by the navigators onGenerateRoute callback and each route's wdget is constructed by a MaterialPageRoute  builder callback
 
 # Deeplink
 
 A deeplink is a link that sends users to a destination in your app rather than a web page 
 
-A weblink is a link that usees Http or Https scheme 
+A weblink is a link that usees Http or Https scheme
 
 An android app link is a subset of a web link that prvides a beter user experience
 
-## Why deeplinks ? 
+## Why deeplinks ?
 
 They offer seamless UX by directing users to specific locations within your app 
-They can be used to drive more profit to you rapp 
+They can be used to drive more profit to your app
 With Deeeplinks you can include targeted / personalized app experiences (increase app signuos , activations and post retention)
-They drive long term engagement 
+They drive long term engagement
+
 # keys
 
 Without a unique key , the framework cant determine whe to show a transition animation between different pages 
 
-# Global keys and preserving a widgets state 
+# Global keys and preserving a widgets state
 
 Each time a widget tree is rebuilt, flutter preserves the state of the widget that occupy the same place in the tree, and have the same key that they did in the previous frame .
 
 Most widgets are created wihtout a key, so thsis simplifies to same runtime type and same tree location .
-A widget with a Global key is treated differently 
+A widget with a Global key is treated differently
 
 Its state and its subtree are moved if the keyed widget moves to a new location when the tree rebuilds 
 
@@ -542,7 +541,8 @@ Its state and its subtree are moved if the keyed widget moves to a new location 
 
 The Navigator has a new pages argument in its constructor. If the list of Page obejct changes, Navigator updates the stack of routes to match
 
-# Url Strategy 
+# Url Strategy
+
 Flutter web apps have two ways of configuring URL - based navigation on the web 
 
 # Publishers Glossary
@@ -551,51 +551,61 @@ A file named pubspec.lock that specifies the concrete versions and other informa
 
 [non nullable instance field must be initialized](<https://stackoverflow.com/questions/67034475/non-nullable-instance-field-must-be-initialized>)
 
-# Animations in Flutter 
+# Animations in Flutter
 
-Well designed UIs feel more intuitive and contribute more the the overall feel of a polished app , improving Usr Experience 
+Well designed UIs feel more intuitive and contribute more the the overall feel of a polished app , improving Usr Experience
 Flutter’s animation support makes it easy to implement a variety of animation types. Many widgets, especially Material widgets, come with the standard motion effects defined in their design spec, but it’s also possible to customize these effects.
 
+## How to choose which Flutter Animation Widget is right for you
 
-## How to choose which Flutter Animation Widget is right for you 
-
-There are a lot of Animation Widgets in flutter and choosing on might feel overwhelming 
+There are a lot of Animation Widgets in flutter and choosing on might feel overwhelming
 
 ## refer to image
 
-Broadly speaking there are two types of animations 
+Broadly speaking there are two types of animations
 
-### Code based animations - 
+### Code based animations -
 
-these are widget focused and are rooted in standard layout and style primitves likr rows, columns,colors,or text styles 
+these are widget focused and are rooted in standard layout and style primitves likr rows, columns,colors,or text styles
 
-### Drawing based animations 
+### Drawing based animations
 
-They look like someone drew them , they are often standalone sprites , like game characters or involve transformations that would be challenging to code 
+They look like someone drew them , they are often standalone sprites , like game characters or involve transformations that would be challenging to code
 
+# Question 1
 
-# Question #1 
 is my animation more like a drawing , or doe it look ike somthing i can build out of Fluter widget primitives 
 if yes, then it is best to make the animation outside of flutter with a tool like lottie and export it to flutter 
 
-if no , flutter code bssed animations come in two flavors implicit and explicit 
+if no , flutter code bssed animations come in two flavors implicit and explicit
 
-## Types of Code Based Animations 
+## Types of Code Based Animations
 
-- Implicit animations simply reply on setting a new value for some wodget property and Flutter tales care of animating form the current value to the newest value the widgets are easy to use and are very powerful, they are a good place to start wehn animating something 
+- Implicit animations simply reply on setting a new value for some wodget property and Flutter tales care of animating form the current value to the newest value the widgets are easy to use and are very powerful, they are a good place to start wehn animating something
 
-- Explicit animations on the other hand require you to use an AnimationController, they are called explicit because they only start animating when explicitly asked to , you can use explicit animations to do everything you do with implicit animations and more , the only caveat is that you have to manage the lifecycle of your AnimationController since its not a widget 
+- Explicit animations on the other hand require you to use an AnimationController, they are called explicit because they only start animating when explicitly asked to , you can use explicit animations to do everything you do with implicit animations and more , the only caveat is that you have to manage the lifecycle of your AnimationController since its not a widget
 
-##  How to determine which type of widget you need 
+## How to determine which type of widget you need
 
 - Does my animation repeat forever ( while its on a certain screen , while a condition is true , etc )
-- Are the values n my animation discontinuous ? For example a, a growing circle animation , the circle repeatedly grows frm small to large then shrinkg (the circles size is discontinuous)
-- Are multiple widgets animating in a coordinated fashion together 
+- Are the values n my animation discontinuous ? For example a, a growing circle animation , the circle repeatedly grows frm small to large then shrinking (the circles size is discontinuous)
+- Are multiple widgets animating in a coordinated fashion together
 
-If you answered yes to any of the questions above, youneed to use an explicit widget, other wise you cna use an implicit widget 
+If you answered yes to any of the questions above, youneed to use an explicit widget, other wise you cna use an implicit widget
 
-## Which widget should i pick 
+## Which widget should i pick
+
 Ask yourself, "is there a widget built for my needs?" if you're looking for a built in animated widget, look for a widget named "AnimatedFoo" where Foo is the name of the property you want to animate eg (AnimatedOpacity)
 
-If you can't find the built-in implicit animation you need you can use TweenAnimationBuilder 
- 
+If you can't find the built-in implicit animation you need you can use TweenAnimationBuilder to create custom implicit animations
+
+## Can find a relevant built-in explicit animation
+
+If you can't , ask yourself : Do i want my animation to be a standalaone widget or part of anohter surrounding widget
+
+If you want a standaline custom explicit animation you should extend AnimatedWidget
+If not you can use Animated Builder
+
+Theres one last option to consider if you are having performance problems and that is animating with CustomPainter
+
+you can use it much like AnimatedWidget, but CustomPainter paints directly to the Canvas, without the standard widget build paradigm. When used well, you can create some neat, extremely custom effects or save on performance. When misused, though, your animation could cause more performance issues.
