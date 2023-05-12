@@ -116,8 +116,8 @@ class MyApp extends StatelessWidget {
         Icon(Icons.star, color: Colors.green[500]),
         Icon(Icons.star, color: Colors.green[500]),
         Icon(Icons.star, color: Colors.green[500]),
-        const Icon(Icons.star, color: Colors.black),
-        const Icon(Icons.star, color: Colors.black)
+        Icon(Icons.star, color: Colors.black),
+        Icon(Icons.star, color: Colors.black)
       ],
     );
     final ratings = Container(

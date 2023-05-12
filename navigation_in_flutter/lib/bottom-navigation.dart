@@ -5,22 +5,23 @@
 import 'package:flutter/material.dart';
 
 class Destination {
-  const Destination(this.title, this.icon, this.color);
+  const Destination(this.index, this.title, this.icon, this.color);
 
+  final int index;
   final String title;
   final IconData icon;
   final MaterialColor color;
 }
 
 const List<Destination> allDestinations = <Destination>[
-  Destination('Home', Icons.home, Colors.teal),
-  Destination('Business', Icons.business, Colors.cyan),
-  Destination('School', Icons.school, Colors.purple),
-  Destination('Flight', Icons.flight, Colors.blue),
+  Destination(0, 'Home', Icons.home, Colors.teal),
+  Destination(1, 'Business', Icons.business, Colors.cyan),
+  Destination(2, 'School', Icons.school, Colors.purple),
+  Destination(3, 'Flight', Icons.flight, Colors.blue),
 ];
 
 class TextPage extends StatefulWidget {
-  const TextPage({Key key, this.destination}) : super(key: key);
+  const TextPage({Key? key, required this.destination}) : super(key: key);
 
   final Destination destination;
 
@@ -81,31 +82,34 @@ class _HomePageState extends State<HomePage>
   ///
   ///
   ///
-  List<AnimationController> _faders;
-  List<Key> _destinationKeys;
+  late List<AnimationController> _faders;
+  late List<Key> _destinationKeys;
 
   int _currentIndex = 0;
-  
+
   @override
   void initState() {
     super.initState();
 
-  _faders = allDestinations.map<AnimationController>((Destination destination) {
-    return AnimationController(vsync: this,duration:Duration(milliseconds: 200))
-  }).toList();
+    _faders =
+        allDestinations.map<AnimationController>((Destination destination) {
+      return AnimationController(
+          vsync: this, duration: Duration(milliseconds: 200));
+    }).toList();
 
-  _faders[_currentIndex].value = 1.0;
+    _faders[_currentIndex].value = 1.0;
 
-  _destinationKeys = List<Key>.generate(allDestinations.length, (int index) => GlobalKey()).toList();
+    _destinationKeys =
+        List<Key>.generate(allDestinations.length, (int index) => GlobalKey())
+            .toList();
   }
 
-
-  @override 
-  void dispose () {
-    for (AnimationController controller in _faders)
-        controller.dispose();
-      super.dispose();
+  @override
+  void dispose() {
+    for (AnimationController controller in _faders) controller.dispose();
+    super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     //Normal version
@@ -133,27 +137,47 @@ class _HomePageState extends State<HomePage>
     //     }).toList(),
     //   ),
     // );
-    //Cross Fading Demo 
-      return Scaffold(
-        body:SafeArea(
-          top:false,
+    //Cross Fading Demo
+    return Scaffold(
+        body: SafeArea(
+          top: false,
           child: Stack(
-             fit:StackFit.expand,
-             children: allDestinations.map((Destination destination) {
+              fit: StackFit.expand,
+              children: allDestinations.map((
+                Destination destination,
+              ) {
                 final Widget view = FadeTransition(
-                  opacity: _faders[destination].drive(CurveTween(curve: Curves.fastOutSlowIn)),
-                  child:KeyedSubtree(
-                    key: _destinationKeys[destination],
-                    child:DestinationView(
-                      destination: destination;
-                    )
-                  )
-                );
-              
-             }).toList()
-          )
-        )
-      );
+                    opacity: _faders[destination.index]
+                        .drive(CurveTween(curve: Curves.fastOutSlowIn)),
+                    child: KeyedSubtree(
+                        key: _destinationKeys[destination.index],
+                        child: DestinationView(destination: destination)));
+                if (destination.index == _currentIndex) {
+                  _faders[destination.index].forward();
+                  return view;
+                } else {
+                  if (_faders[destination.index].isAnimating) {
+                    return IgnorePointer(child: view);
+                  }
+                  return Offstage(child: view);
+                }
+              }).toList()),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+            currentIndex: _currentIndex,
+            onTap: (int index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+            items: allDestinations.map((Destination destination) {
+              return BottomNavigationBarItem(
+                icon: Icon(destination.icon),
+                backgroundColor: destination.color,
+                label: destination.title,
+              );
+            }).toList())
+        );
   }
 }
 
@@ -161,13 +185,13 @@ class _HomePageState extends State<HomePage>
  * Tapping any list item causes it to push a '/text route which will contain a TextPage widget
  */
 class ListPage extends StatelessWidget {
-  const ListPage({Key key, required this.destination}) : super(key: key);
+  const ListPage({Key? key, required this.destination}) : super(key: key);
 
   final Destination destination;
 
   @override
   Widget build(BuildContext context) {
-    const List<num> shades = [50, 00, 200, 300, 400, 500, 600, 700, 800, 900];
+    const List<num> shades = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
     return Scaffold(
       appBar: AppBar(
         title: Text(destination.title),
@@ -201,7 +225,7 @@ class ListPage extends StatelessWidget {
 }
 
 class RootPage extends StatelessWidget {
-  const RootPage({Key key, required this.destination}) : super(key: key);
+  const RootPage({Key? key, required this.destination}) : super(key: key);
 
   final Destination destination;
   @override
@@ -221,8 +245,9 @@ class RootPage extends StatelessWidget {
 }
 
 class DestinationView extends StatefulWidget {
-  // const DestinationView({ Key key, required this.destination }) : super(key: key);
-  const DestinationView({super.key, required this.destination});
+  // const DestinationView({super.key, required this.destination});
+  const DestinationView({Key? key, required this.destination})
+      : super(key: key);
 
   final Destination destination;
 
@@ -244,6 +269,8 @@ class _DestinationViewState extends State<DestinationView> {
                 return ListPage(destination: widget.destination);
               case 'text':
                 return TextPage(destination: widget.destination);
+              default:
+                return RootPage(destination: widget.destination);
             }
           });
     });

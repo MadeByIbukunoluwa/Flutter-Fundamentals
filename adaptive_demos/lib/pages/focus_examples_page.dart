@@ -35,22 +35,15 @@ class FocusExamplesPage extends StatelessWidget {
   }
  }
 
+// Example of a cusotm focus wiodget from scratch 
+
+class ClickableControl extends StatelessWidget {
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+}
 
  class Logo extends StatelessWidget {
     const Logo({Key? key, required this.showBorder}) : super(key:key);
