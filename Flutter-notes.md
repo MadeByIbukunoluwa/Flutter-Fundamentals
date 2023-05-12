@@ -31,13 +31,13 @@ The main function tells flutter to run the app defined in the MyApp
 The MyApp class extends stateless widgets , widgets are the elements from which you build every flutter app
 Every widget has a build method that is automatically called every time the widgets circumstances change so that the widget is up to date
 
-We invoke notifyListeners() so that any object listening to the appStaet will be notified that it ahas changed
+We invoke notifyListeners() so that any object listening to the appState will be notified that it ahas changed
 
 In order to manage complexity , it is important to separate different parts of your UI into different or separate widgets
 
 To extract a piece of code , into a widget in VS Code , move your cursor to the line , then press Cmd + . And a prompt will open
 
-Flutter uses composition over inheritance , so something like padding isn’t  part of text, its a widget too
+Flutter uses composition over inheritance , so something like padding isn’t part of text, its a widget too
 
 Flutter widgets will interpolate between values so that the UI will not just jump between states
 
@@ -359,9 +359,9 @@ Flutter Layout is really different from HTML Layout, make sure you memorize the 
 
  In Detail
  A widget gets its constraints from its parents,
- a constraint is a set of 4 doubles, and a minimum and maxiumu height
+ a constraint is a set of 4 doubles, and a minimum and maxiumum height
 
- The widget goes throigh its won list of children. One by one, the widget tells its children
+ The widget goes through its own list of children. One by one, the widget tells its children
  what their constraints areand then asks each child what size it wants to be
 
  Then, the widget positions its children (horizontally in the x-axis, and vertically in the y-axis) one by one
@@ -370,7 +370,7 @@ Flutter Layout is really different from HTML Layout, make sure you memorize the 
 
 ## Limitations
 
-A widget can decide its own size only within thw constraints given to it by is parent
+A widget can decide its own size only within the constraints given to it by its parent
 This means a widget can't have any size it wants
 
 A widget can't know and doesnt decide its own position on the screen since its the widgets parent who decides the position of the widget
@@ -472,7 +472,7 @@ Material Design is an open source design sysytem built and supported by Gogle su
 
 # Navigation and Routing  
 
-Flutter provides a complete sysytem for navigating between screens and handling deep links.Small applications without deeplinking can use Navigator , while more complex applications with more navigation requirements require Router to corrctly handle deeplinks in Android and ios , and also stay in sync with the browser
+Flutter provides a complete system for navigating between screens and handling deep links.Small applications without deeplinking can use Navigator , while more complex applications with more navigation requirements require Router to corrctly handle deeplinks in Android and ios , and also stay in sync with the browser
 
 Navigator.push(widget) when it is called , it places the called widget on top of the initial widget
 
@@ -484,7 +484,7 @@ Don't invoke 'print' in production code. Try using a logging framework. - import
 
 # Navigator 2.0
 
-The navigator 2.0 API adds new calsse to the frameworl in order to make the apps screens a function of the app state and to provide the ability to parse routes from the underlying platform (like weURLs)
+The navigator 2.0 API adds new class to the framework in order to make the apps screens a function of the app state and to provide the ability to parse routes from the underlying platform (like weURLs)
 
 Page — an immutable object used to set the navigator’s history stack.
 Router — configures the list of pages to be displayed by the Navigator. Usually this list of pages changes based on the underlying platform, or on the state of the app changing.
@@ -553,7 +553,7 @@ A file named pubspec.lock that specifies the concrete versions and other informa
 
 # Animations in Flutter
 
-Well designed UIs feel more intuitive and contribute more the the overall feel of a polished app , improving Usr Experience
+Well designed UIs feel more intuitive and contribute more the the overall feel of a polished app , improving User Experience
 Flutter’s animation support makes it easy to implement a variety of animation types. Many widgets, especially Material widgets, come with the standard motion effects defined in their design spec, but it’s also possible to customize these effects.
 
 ## How to choose which Flutter Animation Widget is right for you
@@ -581,7 +581,7 @@ if no , flutter code bssed animations come in two flavors implicit and explicit
 
 ## Types of Code Based Animations
 
-- Implicit animations simply reply on setting a new value for some wodget property and Flutter tales care of animating form the current value to the newest value the widgets are easy to use and are very powerful, they are a good place to start wehn animating something
+- Implicit animations simply reply on setting a new value for some widget property and Flutter takes care of animating form the current value to the newest value the widgets are easy to use and are very powerful, they are a good place to start wehn animating something
 
 - Explicit animations on the other hand require you to use an AnimationController, they are called explicit because they only start animating when explicitly asked to , you can use explicit animations to do everything you do with implicit animations and more , the only caveat is that you have to manage the lifecycle of your AnimationController since its not a widget
 
@@ -609,3 +609,24 @@ If not you can use Animated Builder
 Theres one last option to consider if you are having performance problems and that is animating with CustomPainter
 
 you can use it much like AnimatedWidget, but CustomPainter paints directly to the Canvas, without the standard widget build paradigm. When used well, you can create some neat, extremely custom effects or save on performance. When misused, though, your animation could cause more performance issues.
+
+## Animation basics with implicit animations 
+Flutter includes series of widgets that are animated versio of existing widgets 
+eg, AnimatedContainer version of Container Widget , AnimatedPosition version of Positioned widget
+These widgets automatially animate changes to their properties , when you rebuild the widget with new property values , the widget handles driving the animation from the previous value to the new value
+When you change the Container widget to the AnimatedCointainer widget the ontainer gradually animates from the previous width value to the new value , the process is called interpolation 
+and this applies to all of its properties.
+We can also control the way the widget interpolates from the old value to the new value by using a curve.Curves cntrol the rate of change overt ime and help your animations feel more realistic 
+
+### No directionality widget found
+
+Flutter doesn't know whether the text is LTR or RTL so you ned to tell it explicitly
+
+[Visit Link](<https://stackoverflow.com/questions/49687181/no-directionality-widget-found>)
+
+## How to build explicit animations in flutter
+
+## Essential animation concepts and classes
+
+
+
