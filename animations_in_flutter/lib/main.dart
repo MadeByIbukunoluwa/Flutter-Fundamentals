@@ -35,7 +35,7 @@ class _MyWidgetState extends State<MyWidget> {
                         colors: [Colors.purple, Colors.transparent],
                         stops: [_bigger ? 0.2 : 0.5, 1.0])),
                 // curve: Curves.easeInOutQuint,
-                curve: SineCurve(count:2),
+                curve: SineCurve(count: 2),
                 width: _bigger ? 100 : 500,
                 child: Image.asset('assets/images/star2.png'),
                 duration: Duration(seconds: 1)),
@@ -48,6 +48,7 @@ class _MyWidgetState extends State<MyWidget> {
         ));
   }
 }
+
 //This is an example of a custom curve , that is the sine curve that uses the sine fucntion to make our curve bounce
 class SineCurve extends Curve {
   final double count;
@@ -57,5 +58,33 @@ class SineCurve extends Curve {
   @override
   double transformInternal(double t) {
     return sin(count * 2 * pi * t) * 0.5 + 0.5;
+  }
+}
+
+//Custom implicit animataions with TweenAnimationBuilder
+// this is an EXTREMELY bare bones illustrtion of suing TweenAnimationBuilder
+// This example is for illustration use only, an implict rotation animation can be achievd with AnimatedContainer
+
+class SuperBasic extends StatelessWidget {
+  const SuperBasic({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: <Widget>[
+        Image.asset(''),
+        Center(
+            child: TweenAnimationBuilder(
+          tween: Tween<double>(begin: 0, end: 2 * pi),
+          duration: Duration(seconds: 2),
+          builder: (BuildContext context, double angle, Widget? child) {
+            return Transform.rotate(
+              angle: angle,
+              child: Image.asset('assets/'),
+            );
+          },
+        ))
+      ],
+    );
   }
 }
