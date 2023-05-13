@@ -618,11 +618,19 @@ When you change the Container widget to the AnimatedCointainer widget the ontain
 and this applies to all of its properties.
 We can also control the way the widget interpolates from the old value to the new value by using a curve.Curves cntrol the rate of change overt ime and help your animations feel more realistic 
 
+Also you don't necessarily need to place these widgets into a stateful widget and use setState you can use StreamBuilder and FutureBuilder to trigger animations 
+
 ### No directionality widget found
 
 Flutter doesn't know whether the text is LTR or RTL so you ned to tell it explicitly
 
 [Visit Link](<https://stackoverflow.com/questions/49687181/no-directionality-widget-found>)
+
+## Custom Implicit Animations in Flutter with TweenAnimationBuilder 
+we are going to state the best use cases for TweenAnimationBulder versus when a different widget is best for the job
+why use TweenAnimationBuilder ?
+Suppose we want to create a basic animation: an animation that doesn't repeat forever and is just one widget or widget tree 
+If we nned to create a basic animation and none of the build in implicit animations eg AnimtedContainer, AnimatedPadding etc is not hwat we are looking for we can crreate the animations with TweenAnimationBuilder 
 
 ## How to build explicit animations in flutter
 
