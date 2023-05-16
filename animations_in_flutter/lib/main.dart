@@ -72,7 +72,7 @@ class SuperBasic extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        Image.asset(''),
+        Image.asset('assets/'),
         Center(
             child: TweenAnimationBuilder(
           tween: Tween<double>(begin: 0, end: 2 * pi),
@@ -84,6 +84,87 @@ class SuperBasic extends StatelessWidget {
             );
           },
         ))
+      ],
+    );
+  }
+}
+
+// there is isn't a built in widget that applies an arbitrary color filter to a widget , butwe can build one with TweenAnimationBuilder , to change the color over time, we want to modify the colr we are applying to the filter
+// A Tween is just the range of values we are naimting between
+
+// Tweens are mutable, so if you're always going to animate between the same set of value, its best to declare the Tween asa a sttatic final varibale in your class , that way you don;t create a new object everyitm your build
+
+class ColorAnimationWithStaticFinal extends StatelessWidget {
+  // The argument type ColorTween cannot be assigned to Tween<Color>
+  // static final colorTween = ColorTween(begin: Colors.white, end: Colors.red) ;
+  static final colorTween =
+      ColorTween(begin: Colors.white, end: Colors.red) as Tween<Color>;
+  static final starsBackground = Image.asset('');
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: <Widget>[
+        starsBackground,
+        Center(
+            child: TweenAnimationBuilder<Color>(
+                tween: colorTween,
+                duration: Duration(seconds: 2),
+                builder: (_, Color color, __) {
+                  return ColorFiltered(
+                      child: Image.asset(''),
+                      colorFilter: ColorFilter.mode(color, BlendMode.modulate));
+                }))
+      ],
+    );
+  }
+}
+
+//Dynamically modifyinfg Tween Values
+// We can do more by dynamically modifying our own tween values
+
+class OngoingAnimationByModifyingEndTweenValue extends StatefulWidget {
+  const OngoingAnimationByModifyingEndTweenValue({super.key});
+
+  @override
+  State<OngoingAnimationByModifyingEndTweenValue> createState() =>
+      _OngoingAnimationByModifyingEndTweenValueState();
+}
+
+class _OngoingAnimationByModifyingEndTweenValueState
+    extends State<OngoingAnimationByModifyingEndTweenValue> {
+  double _newValue = .4;
+  Color? _newColor = Colors.white;
+  static final starsBackground = Image.asset('');
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: <Widget>[
+        starsBackground,
+        Column(
+          children: <Widget>[
+            Center(
+                child: TweenAnimationBuilder<Color>(
+                    tween: ColorTween(begin: Colors.white, end: _newColor)
+                        as Tween<Color>,
+                    duration: Duration(seconds: 2),
+                    builder: (_, Color color, __) {
+                      return ColorFiltered(
+                        child: Image.asset(''),
+                        colorFilter:
+                            ColorFilter.mode(color, BlendMode.modulate),
+                      );
+                    }))
+          ],
+        ),
+        Slider.adaptive(
+            value: _newValue,
+            onChanged: (double value) {
+              setState(() {
+                _newValue = value;
+                _newColor = Color.lerp(Colors.white, Colors.red, value);
+              });
+            })
       ],
     );
   }
