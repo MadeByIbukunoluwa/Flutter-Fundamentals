@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'dart:math';
 
 // https://medium.com/flutter/custom-implicit-animations-in-flutter-with-tweenanimationbuilder-c76540b47185
+//variables decalred as static final variables are done so that they would not be rebuitlt everytime
 void main() {
   // runApp(MyWidget());
   // runApp(ColorAnimationWithStaticFinal());
@@ -157,7 +158,8 @@ class _OngoingAnimationByModifyingEndTweenValueState
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp (
+      debugShowCheckedModeBanner: false,
         home: Scaffold(
           appBar: AppBar(title: const Text('Dynamically modifying value')
       ),
@@ -169,9 +171,10 @@ class _OngoingAnimationByModifyingEndTweenValueState
               Center(
                   child: TweenAnimationBuilder<Color?>(
                       tween: ColorTween(begin: Colors.white, end: _newColor),
-                      duration: Duration(seconds: 2),
+                      duration: Duration(milliseconds: 2),
                       builder: (_, Color? color, __) {
                         return ColorFiltered(
+                          // everytime the color changes flutter has to rebuild the image, the only way to  chnage this is by passing it in as a child widget 
                           child: Image.asset('assets/images/sun.png'),
                           colorFilter: ColorFilter.mode(
                               color ?? Colors.transparent, BlendMode.modulate),
@@ -205,3 +208,5 @@ class _OngoingAnimationByModifyingEndTweenValueState
 //           '(those widgets introduce a MediaQuery), or it can happen if the '
 //           'context you use comes from a widget above those widgets.',
 //         ),
+
+// need to fix size issues 
