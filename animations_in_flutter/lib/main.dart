@@ -5,13 +5,19 @@ import 'package:flutter/widgets.dart';
 import 'dart:math';
 
 // https://medium.com/flutter/custom-implicit-animations-in-flutter-with-tweenanimationbuilder-c76540b47185
+// https://github.com/afitz0/spinning_time/blob/master/lib/main.dart
+
 //variables decalred as static final variables are done so that they would not be rebuitlt everytime
 void main() {
   // runApp(MyWidget());
   // runApp(ColorAnimationWithStaticFinal());
-  runApp(OngoingAnimationByModifyingEndTweenValue());
+  // runApp(OngoingAnimationByModifyingEndTweenValue());
+  runApp(_TimeMachine());
 }
 
+
+
+// implicit animations
 class MyWidget extends StatefulWidget {
   const MyWidget({super.key});
 
@@ -93,11 +99,6 @@ class SuperBasic extends StatelessWidget {
   }
 }
 
-// there is isn't a built in widget that applies an arbitrary color filter to a widget , but we can build one with TweenAnimationBuilder , to change the color over time, we want to modify the color we are applying to the filter
-// A Tween is just the range of values we are animating between
-
-// Tweens are mutable, so if you're always going to animate between the same set of value, its best to declare the Tween asa a sttatic final variable in your class , that way you don;t create a new object everyitm your build
-
 class ColorAnimationWithStaticFinal extends StatelessWidget {
   // The argument type ColorTween cannot be assigned to Tween<Color>
   // static final colorTween = ColorTween(begin: Colors.white, end: Colors.red) ;
@@ -112,7 +113,6 @@ class ColorAnimationWithStaticFinal extends StatelessWidget {
   //Cannot lerp between "Color(0xffffffff)" and "MaterialColor(primary value: Color(0xfff44336))".
 
   // ErrorHint('To lerp colors, consider ColorTween instead.')
-
   static final starsBackground =
       Image.asset('assets/images/starsbackground.jpg');
   @override
@@ -158,48 +158,44 @@ class _OngoingAnimationByModifyingEndTweenValueState
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp (
-      debugShowCheckedModeBanner: false,
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: Scaffold(
-          appBar: AppBar(title: const Text('Dynamically modifying value')
-      ),
-      body: Stack(
-        children: <Widget>[
-          starsBackground,
-          Column(
+          appBar: AppBar(title: const Text('Dynamically modifying value')),
+          body: Stack(
             children: <Widget>[
-              Center(
-                  child: TweenAnimationBuilder<Color?>(
-                      tween: ColorTween(begin: Colors.white, end: _newColor),
-                      duration: Duration(milliseconds: 2),
-                      builder: (_, Color? color, __) {
-                        return ColorFiltered(
-                          // everytime the color changes flutter has to rebuild the image, the only way to  chnage this is by passing it in as a child widget 
-                          child: Image.asset('assets/images/sun.png'),
-                          colorFilter: ColorFilter.mode(
-                              color ?? Colors.transparent, BlendMode.modulate),
-                        );
-                      }))
+              starsBackground,
+              Column(
+                children: <Widget>[
+                  Center(
+                      child: TweenAnimationBuilder<Color?>(
+                          tween:
+                              ColorTween(begin: Colors.white, end: _newColor),
+                          duration: Duration(milliseconds: 2),
+                          builder: (_, Color? color, __) {
+                            return ColorFiltered(
+                              // everytime the color changes flutter has to rebuild the image, the only way to  chnage this is by passing it in as a child widget
+                              child: Image.asset('assets/images/sun.png'),
+                              colorFilter: ColorFilter.mode(
+                                  color ?? Colors.transparent,
+                                  BlendMode.modulate),
+                            );
+                          }))
+                ],
+              ),
+              Slider.adaptive(
+                  value: _newValue,
+                  onChanged: (double value) {
+                    setState(() {
+                      _newValue = value;
+                      _newColor = Color.lerp(Colors.white, Colors.red, value);
+                    });
+                  })
             ],
           ),
-          // Slider widgets require a Material widget ancestor.
-// In Material Design, most widgets are conceptually "printed" on a sheet of material. In Flutter's material library, that material is represented by the Material widget. It is the Material widget that renders ink splashes, for instance. Because of this, many material library widgets require that there be a Material widget in the tree above them.
-
-// To introduce a Material widget, you can either directly include one, or use a widget that contains Material itself, such as a Card, Dialog, Drawer, or Scaffold.
-          Slider.adaptive(
-              value: _newValue,
-              onChanged: (double value) {
-                setState(() {
-                  _newValue = value;
-                  _newColor = Color.lerp(Colors.white, Colors.red, value);
-                });
-              })
-        ],
-      ),
-    ));
+        ));
   }
 }
-
 
 // ErrorHint(
 //           'No MediaQuery ancestor could be found starting from the context '
@@ -209,4 +205,82 @@ class _OngoingAnimationByModifyingEndTweenValueState
 //           'context you use comes from a widget above those widgets.',
 //         ),
 
-// need to fix size issues 
+// need to fix size issues
+
+//Directional animations with built in explicit animations
+
+class _TimeMachine extends StatefulWidget {
+  const _TimeMachine({super.key});
+
+  @override
+  State<_TimeMachine> createState() => _TimeMachineState();
+}
+
+class _TimeMachineState extends State<_TimeMachine>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _animationController;
+
+  late final Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(seconds: 15))..repeat();
+   _animation =
+        CurvedAnimation(parent: _animationController, curve: Curves.ease);
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        home: Stack(children: <Widget>[
+      // Align(
+      //     alignment: Alignment.center,
+      //     child: TimeStopper(
+      //       controller: _animationController
+      //     )
+      //   ),
+      Align(
+          alignment: Alignment.center,
+          child: RotationTransition(
+              alignment: Alignment.center,
+              turns: _animation,
+              child: Image.asset("assets/images/galaxy.png"),
+          ))
+    ]));
+  }
+}
+
+class TimeStopper extends StatelessWidget {
+  late final AnimationController controller;
+
+  TimeStopper({super.key, required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+        onTap: () {
+          if (controller.isAnimating) {
+            controller.stop();
+          } else {
+            controller.repeat();
+          }
+        },
+        child: Container(
+          decoration:
+              BoxDecoration(
+                color:Colors.transparent
+              ),
+          height: 100,
+          width: 100,
+        ));
+  }
+}
