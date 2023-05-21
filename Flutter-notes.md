@@ -627,14 +627,40 @@ Flutter doesn't know whether the text is LTR or RTL so you ned to tell it explic
 [Visit Link](<https://stackoverflow.com/questions/49687181/no-directionality-widget-found>)
 
 ## Custom Implicit Animations in Flutter with TweenAnimationBuilder 
+
 we are going to state the best use cases for TweenAnimationBulder versus when a different widget is best for the job
 why use TweenAnimationBuilder ?
 Suppose we want to create a basic animation: an animation that doesn't repeat forever and is just one widget or widget tree 
-If we nned to create a basic animation and none of the build in implicit animations eg AnimtedContainer, AnimatedPadding etc is not hwat we are looking for we can crreate the animations with TweenAnimationBuilder 
+If we need to create a basic animation and none of the build in implicit animations eg AnimtedContainer, AnimatedPadding etc is not hwat we are looking for we can crreate the animations with TweenAnimationBuilder 
+
+Color.lerp - this is used to linearly interpolate between two values 
+
+lerp lerping - meaning
+Lerping (Linear Interpolation) provides the intermediary steps of a transition. Calculated over time, it can convey the visual movement of objects. For example, imagine a coin on a ruler. At the start of our animation, the coin is at the 0cm mark. After 3 seconds, it is at the 30cm mark.
+
+### Additional Notes for implicit animations
+
+Slider widgets require a Material widget ancestor.
+// In Material Design, most widgets are conceptually "printed" on a sheet of material. In Flutter's material library, that material is represented by the Material widget. It is the Material widget that renders ink splashes, for instance. Because of this, many material library widgets require that there be a Material widget in the tree above them.
+
+// To introduce a Material widget, you can either directly include one, or use a widget that contains Material itself, such as a Card, Dialog, Drawer, or Scaffold.
+
+// there is isn't a built in widget that applies an arbitrary color filter to a widget , but we can build one with TweenAnimationBuilder , to change the color over time, we want to modify the color we are applying to the filter
+// A Tween is just the range of values we are animating between
+
+// Tweens are mutable, so if you're always going to animate between the same set of value, its best to declare the Tween as a a static final variable in your class , that way you dont create a new object everyitm your build
+
 
 ## How to build explicit animations in flutter
 
+Implicit animations gave us the ability to put some basic animations into our app 
+These animations typically go in one direction tweening from start to end , where they stop
+Behind the scenes, flutter is taking control, assuming intentions and disposing of any need for you to worry about the transition from one thing to the next
+We can gain more control over our animations using TransitionWidgets 
+Transition widgets are a set of flutter widgets whose name end in transition eg DecoratedBoxTransition, SizeTransition, ScaleTransition, Positioned Transition, etc (they look and feel like animatedX widgets) but they is one major difference - they are extensions of AnimatedWidget
+Animation Controller - this handles listening for ticks and gives us some useful controls over what the animation is doing - we nend to create it in a stateful widget though 
+
+vsync - this gives flutter a refernece to the object to notify about changes
+
 ## Essential animation concepts and classes
-
-
 
