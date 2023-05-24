@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'dart:math';
 
 // https://medium.com/flutter/custom-implicit-animations-in-flutter-with-tweenanimationbuilder-c76540b47185
+// https://medium.com/flutter/directional-animations-with-built-in-explicit-animations-3e7c5e6fbbd7
 // https://github.com/afitz0/spinning_time/blob/master/lib/main.dart
 
 //variables decalred as static final variables are done so that they would not be rebuitlt everytime
@@ -14,8 +15,6 @@ void main() {
   // runApp(OngoingAnimationByModifyingEndTweenValue());
   runApp(_TimeMachine());
 }
-
-
 
 // implicit animations
 class MyWidget extends StatefulWidget {
@@ -218,18 +217,51 @@ class _TimeMachine extends StatefulWidget {
 
 class _TimeMachineState extends State<_TimeMachine>
     with SingleTickerProviderStateMixin {
-  late final AnimationController _animationController;
+  // late final AnimationController _animationController;
+  late final AnimationController _repeatingAnimationShort;
+  late final AnimationController _repeatingAnimationLong;
+  late final AnimationController _loopingAnimationShort;
+  late final AnimationController _loopingAnimationLong;
 
-  late final Animation<double> _animation;
+  Animatable<double> _scaleCurve;
+  Animatable<Offset> _slideCurve;
+  Animatable<Offset> _reverseSlide;
+  Animatable<double> _scaleCurveSlow;
+
+  // late final Animation<double> _animation;
 
   @override
   void initState() {
     super.initState();
 
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(seconds: 15))..repeat();
-   _animation =
-        CurvedAnimation(parent: _animationController, curve: Curves.ease);
+    _repeatingAnimationShort =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 3600))
+          ..repeat();
+    _repeatingAnimationLong =
+        AnimationController(vsync: this, duration: Duration(seconds: 15))
+          ..repeat();
+    _loopingAnimationShort =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 3600))
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              _loopingAnimationShort.reverse();
+            }
+            if (status == AnimationStatus.dismissed) {
+              _loopingAnimationShort.forward();
+            }
+          })
+          ..forward();
+    _loopingAnimationLong =
+        AnimationController(vsync: this, duration: Duration(seconds: 30))
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              _loopingAnimationShort.reverse();
+            }
+            if (status == AnimationStatus.dismissed) {
+              _loopingAnimationShort.forward();
+            }
+          })
+          ..forward();
   }
 
   @override
@@ -241,19 +273,14 @@ class _TimeMachineState extends State<_TimeMachine>
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Stack(children: <Widget>[
-      // Align(
-      //     alignment: Alignment.center,
-      //     child: TimeStopper(
-      //       controller: _animationController
-      //     )
-      //   ),
+        home: Stack(
+          children: <Widget>[
       Align(
           alignment: Alignment.center,
           child: RotationTransition(
-              alignment: Alignment.center,
-              turns: _animation,
-              child: Image.asset("assets/images/galaxy.png"),
+            alignment: Alignment.center,
+            turns: _animation,
+            child: Image.asset("assets/images/galaxy.png"),
           ))
     ]));
   }
@@ -275,12 +302,11 @@ class TimeStopper extends StatelessWidget {
           }
         },
         child: Container(
-          decoration:
-              BoxDecoration(
-                color:Colors.transparent
-              ),
+          decoration: BoxDecoration(color: Colors.transparent),
           height: 100,
           width: 100,
         ));
   }
 }
+
+// Explicit animations with AnimatedBuilder and AnimatedWidget
