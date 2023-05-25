@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:animations_in_flutter/dynamicallymodifytweenvalues.dart';
+import 'package:animations_in_flutter/implicitanimations.dart';
+import 'package:animations_in_flutter/tweenanimationbuilder.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/widgets.dart';
@@ -13,31 +16,29 @@ void main() {
   runApp(MyApp());
 }
 
+const double smallIconSize = 24.0;
+const double largeIconSize = 196.0;
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-      theme:ThemeData(
-        primarySwatch: Colors.grey,
-      ),
-      home:Scaffold(
-          body:Container(
-            color:Colors.black,
-            child:Center(
-              child:_TimeMachine()
-              // MyWidget()
-              // ColorAnimationWithStaticFinal();
-             //OngoingAnimationByModifyingEndTweenValue();
-            )
-          )
+    return MaterialApp(
+        theme: ThemeData(
+          primarySwatch: Colors.grey,
         ),
-      debugShowCheckedModeBanner:false
-    );
+        home: Scaffold(
+            body: Container(
+                color: Colors.black,
+                child: Center(child: _TimeMachine()
+                    // MyWidget()
+                    // ColorAnimationWithStaticFinal();
+                    //OngoingAnimationByModifyingEndTweenValue();
+                    ))),
+        debugShowCheckedModeBanner: false);
   }
 }
-
 
 //Directional animations with built in explicit animations
 
@@ -56,10 +57,10 @@ class _TimeMachineState extends State<_TimeMachine>
   late final AnimationController _loopingAnimationShort;
   late final AnimationController _loopingAnimationLong;
 
-  Animatable<double> _scaleCurve;
-  Animatable<Offset> _slideCurve;
-  Animatable<Offset> _reverseSlide;
-  Animatable<double> _scaleCurveSlow;
+  late Animatable<double> _scaleCurve;
+  late Animatable<Offset> _slideCurve;
+  late Animatable<Offset> _reverseSlide;
+  late Animatable<double> _scaleCurveSlow;
 
   // late final Animation<double> _animation;
 
@@ -97,41 +98,61 @@ class _TimeMachineState extends State<_TimeMachine>
           ..forward();
   }
 
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _animationController.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Stack(children: <Widget>[
+    return Stack(children: <Widget>[
       Align(
           alignment: Alignment.center,
           child: RotationTransition(
-            alignment: Alignment.center,
-            turns: _animation,
-            child: Image.asset("assets/images/galaxy.png"),
-          ))
-    ]));
+              alignment: Alignment.center,
+              turns: _repeatingAnimationLong,
+              child: GalaxyFitz())),
+      //spinning hourglass
+      //flying home
+      //flying rocket
+      //revolving rocket
+      // Hidden button - stops time
+      //Hidden button flings
+    ]);
+  }
+
+  void setAnimatables() {
+    double deviceHeight = MediaQuery.of(context).size.height;
+    double deviceWidth = MediaQuery.of(context).size.width;
+
+    _scaleCurve = CurveTween(curve: Curves.easeIn);
+    _scaleCurveSlow = Tween<double>(begin: 0, end: 5);
+    _slideCurve = Tween<Offset>(
+        begin: Offset(-2, 2),
+        end: Offset(
+            deviceWidth / smallIconSize, -1 * deviceHeight / smallIconSize));
+    _reverseSlide =
+        Tween<Offset>(begin: Offset(deviceWidth / smallIconSize, 2));
   }
 }
 
 class TimeStopper extends StatelessWidget {
-  late final AnimationController controller;
+  late final List<AnimationController> controllers;
 
-  TimeStopper({super.key, required this.controller});
+  TimeStopper({super.key, required this.controllers});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          if (controller.isAnimating) {
-            controller.stop();
-          } else {
-            controller.repeat();
-          }
+          controllers.forEach((controller) {
+            if (controller.isAnimating) {
+              controller.stop();
+            } else {
+              controller.repeat();
+            }
+          });
         },
         child: Container(
           decoration: BoxDecoration(color: Colors.transparent),
@@ -141,4 +162,34 @@ class TimeStopper extends StatelessWidget {
   }
 }
 
+// Takes the given controllers and flings them forward
+class FlingButton extends StatelessWidget {
+  final List<AnimationController> controllers;
+
+  const FlingButton({super.key, required this.controllers});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+        onTap: () {
+          controllers.forEach((controller) {
+            controller.fling();
+          });
+        },
+        child: Container(
+          decoration: BoxDecoration(color: Colors.transparent),
+          height: 100,
+          width: 100,
+        ));
+  }
+}
+
+class GalaxyFitz extends StatelessWidget {
+  const GalaxyFitz({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset("assets/images/galaxy.png");
+  }
+}
 // Explicit animations with AnimatedBuilder and AnimatedWidget
