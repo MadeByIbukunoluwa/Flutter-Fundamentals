@@ -31,7 +31,7 @@ The main function tells flutter to run the app defined in the MyApp
 The MyApp class extends stateless widgets , widgets are the elements from which you build every flutter app
 Every widget has a build method that is automatically called every time the widgets circumstances change so that the widget is up to date
 
-We invoke notifyListeners() so that any object listening to the appState will be notified that it ahas changed
+We invoke notifyListeners() so that any object listening to the appState will be notified that it a has changed
 
 In order to manage complexity , it is important to separate different parts of your UI into different or separate widgets
 
@@ -190,7 +190,7 @@ Errors
   - There are two basic approaches to creating flutter apps with responsive design
 Use the LayoutBuilder class
             - From its builder property, you get a BoxConstraints Object. Examine the constraints properties to decide what to display
-            - For example, if your max width is greater than your width breakpoint return a Scaffold object with a row that has a list in the left , you can also adjust your display based one devices height , the aspect ratio or some other property
+            - For example, if your max width is greater than your width breakpoint return a Scaffold object with a row that has a list in the left , you can also adjust your display based on devices height , the aspect ratio or some other property
             - When the constraint changes , the build function runs , in simple terms we have two layouts depending on the orientation or screen size , and we rebuild our layout depending on these
 Use the MediaQuery.of()
     - Use the MediaQuery.of() method in your build function
@@ -252,7 +252,7 @@ Imposes size constraints on its child, offering control over the minimum or maxi
 
 # Expanded or Flexible -
 
- Allows a child of a Row or Column to shrink or grow to fill nay available space
+ Allows a child of a Row or Column to shrink or grow to fill any available space
 
 # FractionallySizedBox
 
@@ -373,12 +373,12 @@ Flutter Layout is really different from HTML Layout, make sure you memorize the 
 A widget can decide its own size only within the constraints given to it by its parent
 This means a widget can't have any size it wants
 
-A widget can't know and doesnt decide its own position on the screen since its the widgets parent who decides the position of the widget
+A widget can't know and doesn't decide its own position on the screen since its the widgets parent who decides the position of the widget
 
 Since the parents size and position also depends on its own parent, its impossible
 to precisely define the size and position of a widget without taking the whiole tree into consideration
 
-If a child wants a differnt size from its parent and the parent doesn't have enough information to align it, the childs size may be ignored Be specific when defining when deifining alignment
+If a child wants a different size from its parent and the parent doesn't have enough information to align it, the childs size may be ignored Be specific when defining when deifining alignment
 
 When a widget tells its child that it must be of a certain size, we say that the widget supplies tight constraints tits child
 
@@ -521,7 +521,9 @@ An android app link is a subset of a web link that prvides a beter user experien
 
 They offer seamless UX by directing users to specific locations within your app 
 They can be used to drive more profit to your app
-With Deeeplinks you can include targeted / personalized app experiences (increase app signuos , activations and post retention)
+
+With Deeplinks you can include targeted / personalized app experiences (increase app signuos , activations and post retention)
+
 They drive long term engagement
 
 # keys
@@ -574,21 +576,23 @@ They look like someone drew them , they are often standalone sprites , like game
 
 # Question 1
 
-is my animation more like a drawing , or doe it look ike somthing i can build out of Fluter widget primitives 
+is my animation more like a drawing , or does it look ike somthing i can build out of Fluter widget primitives 
 if yes, then it is best to make the animation outside of flutter with a tool like lottie and export it to flutter 
 
 if no , flutter code bssed animations come in two flavors implicit and explicit
 
 ## Types of Code Based Animations
 
-- Implicit animations simply reply on setting a new value for some widget property and Flutter takes care of animating form the current value to the newest value the widgets are easy to use and are very powerful, they are a good place to start wehn animating something
+- Implicit animations simply reply on setting a new value for some widget property and Flutter takes care of animating from the current value to the newest value the widgets are easy to use and are very powerful, they are a good place to start wehn animating something
 
 - Explicit animations on the other hand require you to use an AnimationController, they are called explicit because they only start animating when explicitly asked to , you can use explicit animations to do everything you do with implicit animations and more , the only caveat is that you have to manage the lifecycle of your AnimationController since its not a widget
 
 ## How to determine which type of widget you need
 
 - Does my animation repeat forever ( while its on a certain screen , while a condition is true , etc )
-- Are the values n my animation discontinuous ? For example a, a growing circle animation , the circle repeatedly grows frm small to large then shrinking (the circles size is discontinuous)
+
+- Are the values in my animation discontinuous ? For example a, a growing circle animation , the circle repeatedly grows frm small to large then shrinking (the circles size is discontinuous)
+
 - Are multiple widgets animating in a coordinated fashion together
 
 If you answered yes to any of the questions above, youneed to use an explicit widget, other wise you cna use an implicit widget
@@ -611,14 +615,28 @@ Theres one last option to consider if you are having performance problems and th
 you can use it much like AnimatedWidget, but CustomPainter paints directly to the Canvas, without the standard widget build paradigm. When used well, you can create some neat, extremely custom effects or save on performance. When misused, though, your animation could cause more performance issues.
 
 ## Animation basics with implicit animations 
-Flutter includes series of widgets that are animated versio of existing widgets 
+
+Flutter includes series of widgets that are animated version of existing widgets 
 eg, AnimatedContainer version of Container Widget , AnimatedPosition version of Positioned widget
 These widgets automatially animate changes to their properties , when you rebuild the widget with new property values , the widget handles driving the animation from the previous value to the new value
-When you change the Container widget to the AnimatedCointainer widget the ontainer gradually animates from the previous width value to the new value , the process is called interpolation 
+When you change the Container widget to the AnimatedCointainer widget the container gradually animates from the previous width value to the new value , the process is called interpolation 
 and this applies to all of its properties.
-We can also control the way the widget interpolates from the old value to the new value by using a curve.Curves cntrol the rate of change overt ime and help your animations feel more realistic 
+We can also control the way the widget interpolates from the old value to the new value by using a curve.Curves control the rate of change overt ime and help your animations feel more realistic 
 
 Also you don't necessarily need to place these widgets into a stateful widget and use setState you can use StreamBuilder and FutureBuilder to trigger animations 
+
+Implicit animations gave us the ability to put some basic animations into our app
+
+These animations typically go in one direction tweening from start to end , where they stop
+Behind the scenes, flutter is taking control, assuming intentions and disposing of any need for you to worry about the transition from one thing to the next
+
+We can gain more control over our animations using TransitionWidgets
+
+Transition widgets are a set of flutter widgets whose name end in transition eg DecoratedBoxTransition, SizeTransition, ScaleTransition, Positioned Transition, etc (they look and feel like animatedX widgets) but they is one major difference - they are extensions of AnimatedWidget
+
+Animation Controller - this handles listening for ticks and gives us some useful controls over what the animation is doing - we nend to create it in a stateful widget though
+
+vsync - this gives flutter a reference to the object to notify about changes
 
 ### No directionality widget found
 
@@ -626,14 +644,16 @@ Flutter doesn't know whether the text is LTR or RTL so you ned to tell it explic
 
 [Visit Link](<https://stackoverflow.com/questions/49687181/no-directionality-widget-found>)
 
-## Custom Implicit Animations in Flutter with TweenAnimationBuilder 
+## Custom Implicit Animations in Flutter with TweenAnimationBuilder
 
-we are going to state the best use cases for TweenAnimationBulder versus when a different widget is best for the job
+we are going to state the best use cases for TweenAnimationBuilder versus when a different widget is best for the job
+
 why use TweenAnimationBuilder ?
-Suppose we want to create a basic animation: an animation that doesn't repeat forever and is just one widget or widget tree 
-If we need to create a basic animation and none of the build in implicit animations eg AnimtedContainer, AnimatedPadding etc is not hwat we are looking for we can crreate the animations with TweenAnimationBuilder 
 
-Color.lerp - this is used to linearly interpolate between two values 
+Suppose we want to create a basic animation: an animation that doesn't repeat forever and is just one widget or widget tree 
+If we need to create a basic animation and none of the build in implicit animations eg AnimtedContainer, AnimatedPadding etc is not what we are looking for we can crreate the animations with TweenAnimationBuilder 
+
+Color.lerp - this is used to linearly interpolate between two values
 
 lerp lerping - meaning
 Lerping (Linear Interpolation) provides the intermediary steps of a transition. Calculated over time, it can convey the visual movement of objects. For example, imagine a coin on a ruler. At the start of our animation, the coin is at the 0cm mark. After 3 seconds, it is at the 30cm mark.
@@ -650,17 +670,11 @@ Slider widgets require a Material widget ancestor.
 
 // Tweens are mutable, so if you're always going to animate between the same set of value, its best to declare the Tween as a a static final variable in your class , that way you dont create a new object everyitm your build
 
-
 ## How to build explicit animations in flutter
 
-Implicit animations gave us the ability to put some basic animations into our app 
-These animations typically go in one direction tweening from start to end , where they stop
-Behind the scenes, flutter is taking control, assuming intentions and disposing of any need for you to worry about the transition from one thing to the next
-We can gain more control over our animations using TransitionWidgets 
-Transition widgets are a set of flutter widgets whose name end in transition eg DecoratedBoxTransition, SizeTransition, ScaleTransition, Positioned Transition, etc (they look and feel like animatedX widgets) but they is one major difference - they are extensions of AnimatedWidget
-Animation Controller - this handles listening for ticks and gives us some useful controls over what the animation is doing - we nend to create it in a stateful widget though 
+Suppose you need to add an animation to your application which rpeats multiple times nad needs to be able to pause or resume in response to something , you'll need an explicit animation for explicit animations you ned an animationcontroller, for implict animations , you don't 
+If you've determined that you are going to use an explicit animation there is a wide array of host explicit animation classes to choose from , you should fisrst check out if you can use any one of these wdigets to accomplish your needs first , if they don't have what you are looking for, then you can build your own using  AnimatedWidget or AnimatedBuilder 
 
-vsync - this gives flutter a refernece to the object to notify about changes
+
 
 ## Essential animation concepts and classes
-
