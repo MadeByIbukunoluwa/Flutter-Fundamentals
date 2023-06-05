@@ -673,8 +673,23 @@ Slider widgets require a Material widget ancestor.
 ## How to build explicit animations in flutter
 
 Suppose you need to add an animation to your application which rpeats multiple times nad needs to be able to pause or resume in response to something , you'll need an explicit animation for explicit animations you ned an animationcontroller, for implict animations , you don't 
-If you've determined that you are going to use an explicit animation there is a wide array of host explicit animation classes to choose from , you should fisrst check out if you can use any one of these wdigets to accomplish your needs first , if they don't have what you are looking for, then you can build your own using  AnimatedWidget or AnimatedBuilder 
+If you've determined that you are going to use an explicit animation there is a wide array of host explicit animation classes to choose from , you should fisrst check out if you can use any one of these wdigets to accomplish your needs first , if they don't have what you are looking for, then you can build your own using  AnimatedWidget or AnimatedBuilder
+
+That’s a vote in favor of using AnimatedWidget whenever possible. However, if your parent widget that creates the animation controller is pretty simple, maybe making a separate standalone widget just for your animation is too much extra code. In that case, AnimatedBuilder is all that you need.
 
 
+## Animation Deep Dive 
+Animations in flutter are just a quick succession of changing the state 60 or 120 times per second , they are a way o rebuilding parts of your widget tree on every frame , yes, flutter is fast enough to do that 
+
+We will build an animation from first principles with TickerController and setState
+Animation fast consecutive ripples of widgets
+## Note
+
+Always remember to add images to the pubspec.yaml file first or else when you use Image.asset to and put the file location it will not work
+
+ticker - a ticker is an Object thst calls a function for very frame 
+
+Scheduler - the flutter scheduler library is responsible for scheduler frame callbacks 
+and tasks at given priorities , it alos makes sure tasks are running when appropriate , eg. and idle task is executed when no animation is running 
 
 ## Essential animation concepts and classes
