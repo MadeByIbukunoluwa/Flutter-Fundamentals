@@ -19,8 +19,18 @@ class MyAppHome extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  MyHomePage({super.key});
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
+  // _MyHomePageState({super.key});
+
+  late AnimationController _animation;
+
   final Image starsBackground = Image.asset(
     "assets/images/starsbackground.jpg",
   );
@@ -29,7 +39,14 @@ class MyHomePage extends StatelessWidget {
     height: 400,
     width: 400,
   );
-
+  @override
+  void initState() {
+    super.initState();
+    _animation = AnimationController(
+      duration: Duration(seconds:5),
+      vsync: this
+    )..repeat();
+  }
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -39,18 +56,32 @@ class MyHomePage extends StatelessWidget {
           fit: BoxFit.fill,
           child: starsBackground,
         ),
-        ClipPath(
+       AnimatedBuilder(
+        animation: _animation, 
+        builder: (_,__) {
+           return ClipPath(
             clipper: const BeamClipper(),
             child: Container(
               height: 1000,
               decoration: BoxDecoration(
                   gradient: RadialGradient(
                       radius: 1.5,
-                      colors: [Colors.yellow, Colors.transparent])),
-            )),
+                      colors: [Colors.yellow, Colors.transparent],
+                      stops: [0,_animation.value] 
+                 )),
+            )
+          );
+       }
+      ),
         ufo
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    _animation.dispose();
+    super.dispose();
   }
 }
 
@@ -71,7 +102,7 @@ class BeamClipper extends CustomClipper<Path> {
   bool shouldReclip(CustomClipper oldClipper) => false;
 }
 
-// we want to create a beam shaped animation that will be repeated starting from the center of the Ufo but their is no inbuilt widgets for funnel shaped gradients so we will use Animated Gradient , we will wrap the graident code inisde the AnimatedBuilder , we're also ging to use a controller to drive the animation , we create the controller in the initState instead of the buildMethod, because we don't want to create the contrller multiple times 
+// we want to create a beam shaped animation that will be repeated starting from the center of the Ufo but their is no inbuilt widgets for funnel shaped gradients so we will use Animated Gradient , we will wrap the graident code inisde the AnimatedBuilder , we're also ging to use a controller to drive the animation , we create the controller in the initState instead of the buildMethod, because we don't want to create the controller multiple times 
 
 
 
