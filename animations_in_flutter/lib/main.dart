@@ -5,16 +5,24 @@ import 'package:animations_in_flutter/tweenanimationbuilder.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/widgets.dart';
+import 'package:animations_in_flutter/creatingcustomexplicitanimations.dart';
+import 'package:animations_in_flutter/animationdeepdive.dart';
+import 'package:flutter/scheduler.dart';
 // import 'package:flutter/src/animation/tween.dart';
 import 'dart:math';
 
-// https://medium.com/flutter/custom-implicit-animations-in-flutter-with-tweenanimationbuilder-c76540b47185
 // https://medium.com/flutter/directional-animations-with-built-in-explicit-animations-3e7c5e6fbbd7
+
 // https://github.com/afitz0/spinning_time/blob/master/lib/main.dart
 
-//variables declared as static final variables are done so that they would not be rebuitlt everytime
+//variables declared as static final variables are done so that they would not be rebuilt everytime
+
 void main() {
-  runApp(MyApp());
+  // runApp(MyAppHome());
+  runApp(MyAnimatedApp());
+  // var ticker = Ticker((elapsed) => print('hello'));
+  // ticker.start();
+  // ticker.dispose();
 }
 
 const double smallIconSize = 24.0;
@@ -106,7 +114,7 @@ class _TimeMachineState extends State<_TimeMachine>
 
   @override
   Widget build(BuildContext context) {
-      setAnimatables();
+    setAnimatables();
     return Stack(children: <Widget>[
       Align(
           alignment: Alignment.center,
@@ -175,7 +183,7 @@ class _TimeMachineState extends State<_TimeMachine>
 
   void setAnimatables() {
     double deviceHeight = MediaQuery.of(context).size.height;
-  //This error happened because i put the setAnimatables function in the initState method, i fixed this by putting it in the widget build method 
+    //This error happened because i put the setAnimatables function in the initState method, i fixed this by putting it in the widget build method
 //  exception has occurred.
 // FlutterError (dependOnInheritedWidgetOfExactType<MediaQuery>() or dependOnInheritedElement() was called before _TimeMachineState.initState() completed.
 // When an inherited widget changes, for example if the value of Theme.of() changes, its dependent widgets are rebuilt. If the dependent widget's reference to the inherited widget is in a constructor or an initState() method, then the rebuilt dependent widget will not reflect the changes in the inherited widget.
@@ -188,9 +196,10 @@ class _TimeMachineState extends State<_TimeMachine>
         begin: Offset(-2, 2),
         end: Offset(
             deviceWidth / smallIconSize, -1 * deviceHeight / smallIconSize));
-    _reverseSlide =
-        Tween<Offset>(begin: Offset(deviceWidth / smallIconSize, 2),
-        end: Offset(-2, -1 * deviceHeight / smallIconSize),);
+    _reverseSlide = Tween<Offset>(
+      begin: Offset(deviceWidth / smallIconSize, 2),
+      end: Offset(-2, -1 * deviceHeight / smallIconSize),
+    );
   }
 }
 
@@ -249,4 +258,3 @@ class GalaxyFitz extends StatelessWidget {
     return Image.asset("assets/images/galaxy.png");
   }
 }
-// Explicit animations with AnimatedBuilder and AnimatedWidget
