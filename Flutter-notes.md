@@ -692,4 +692,27 @@ ticker - a ticker is an Object thst calls a function for very frame
 Scheduler - the flutter scheduler library is responsible for scheduler frame callbacks 
 and tasks at given priorities , it alos makes sure tasks are running when appropriate , eg. and idle task is executed when no animation is running 
 
+## Types of Animation 
+Twwen animation 
+Physics based animation 
+pre canned animation 
+
+## Common Animation 
+Animated List or Grid 
+Shared Element Transition 
+Staggered Animation 
+
+## animations
+Animation , a core class in Flutters animation library, interolates the values used to guide an animation 
+
+an AnimationController manages the animation 
+
+A curvedAnimation defines progression as a non linear curve 
+
+A tween interpolates between the raneg of data as used by the object being animated 
+
+use listeners and statuslisteners to monitor state changes 
+
+
+
 ## Essential animation concepts and classes

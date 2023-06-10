@@ -1,3 +1,5 @@
+# Decisions for choosing widgets in flutter
+
 1. Do I need to group my widgets together?
     - Yes: Go to step 2.
     - No: Go to step 4.

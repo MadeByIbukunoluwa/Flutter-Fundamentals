@@ -7,7 +7,9 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/widgets.dart';
 import 'package:animations_in_flutter/creatingcustomexplicitanimations.dart';
 import 'package:animations_in_flutter/animationdeepdive.dart';
+import 'package:animations_in_flutter/animationstutorial.dart';
 import 'package:flutter/scheduler.dart';
+import 'implicitanimationscodelab.dart';
 // import 'package:flutter/src/animation/tween.dart';
 import 'dart:math';
 
@@ -19,7 +21,9 @@ import 'dart:math';
 
 void main() {
   // runApp(MyAppHome());
-  runApp(MyAnimatedApp());
+  // runApp(MyAnimatedApp());
+  // runApp(MyFadeInDemoApp());
+  runApp(LogoApp());
   // var ticker = Ticker((elapsed) => print('hello'));
   // ticker.start();
   // ticker.dispose();

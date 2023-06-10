@@ -4,10 +4,13 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/widgets.dart';
 import 'dart:math';
 
+// https://medium.com/flutter/custom-implicit-animations-in-flutter-with-tweenanimationbuilder-c76540b47185
 
 //Custom implicit animations with TweenAnimationBuilder
+
 // this is an EXTREMELY bare bones illustration of using TweenAnimationBuilder
-// This example is for illustration use only, an implict rotation animation can be achievd with AnimatedContainer
+
+// This example is for illustration use only, an implict rotation animation can be achieved with AnimatedContainer
 
 class SuperBasic extends StatelessWidget {
   const SuperBasic({super.key});
