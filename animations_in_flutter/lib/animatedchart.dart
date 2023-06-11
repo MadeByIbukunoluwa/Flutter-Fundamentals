@@ -1,10 +1,8 @@
 import 'dart:math';
-
+import 'package:animations_in_flutter/bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-
-
 
 // https://medium.com/flutter/zero-to-one-with-flutter-43b13fd7b354
 
@@ -24,61 +22,51 @@ class ChartPage extends StatefulWidget {
   State<ChartPage> createState() => _ChartPageState();
 }
 
-class _ChartPageState extends State<ChartPage> {
+class _ChartPageState extends State<ChartPage>
+    with SingleTickerProviderStateMixin {
   final random = Random();
 
   int dataSet = 50;
 
+  late AnimationController animation;
+
+  late BarTween tween;
+
+  void initState() {
+    super.initState();
+    animation = AnimationController(
+        duration: const Duration(milliseconds: 300), vsync: this);
+    tween = BarTween(Bar(0.0), Bar(50.0));
+    animation.forward();
+  }
+
+  @override
+  void dispose() {
+    animation.dispose();
+    super.dispose();
+  }
+
   void changeData() {
     setState(() {
       dataSet = random.nextInt(100);
+      tween =
+          BarTween(tween.evaluate(animation), Bar(random.nextDouble() * 100.0));
     });
+    animation.forward(from: 0.0);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        // CustomPaint is a widget that delegates painting to a CustomPainter strategy 
-        child: CustomPaint(
-          size:Size(200.0,100.0),
-          painter:BarChartPainter()
+        body: Center(
+            // CustomPaint is a widget that delegates painting to a CustomPainter strategy
+            child: CustomPaint(
+                size: Size(200.0, 100.0),
+                painter: BarChartPainter(animation: tween.animate(animation)))),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.refresh),
+          onPressed: changeData,
         )
-      ),
-      floatingActionButton:FloatingActionButton(
-        child: Icon(Icons.refresh),
-        onPressed: changeData,
-      ),
     );
   }
-}
-
-
-class BarChartPainter extends CustomPainter {
-
-  static const barWidth = 10.0;
-
-
-  const BarChartPainter({required this.barHeight}) ;
-
-  final double barHeight;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-        ..color = Colors.blue[400] as Color
-        ..style = PaintingStyle.fill;
-
-   canvas.drawRect(
-        Rect.fromLTWH(
-          (size.width - barWidth) / 2.0,
-          size.height - barHeight,
-          barWidth, 
-          barHeight),
-        paint
-    );
-  }
-
-  @override
-  bool shouldRepaint(BarChartPainter old) => barHeight != old.barHeight;
 }
