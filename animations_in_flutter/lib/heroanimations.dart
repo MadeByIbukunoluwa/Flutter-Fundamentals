@@ -75,7 +75,7 @@ class HeroAnimation extends StatelessWidget {
                                 onTap: () {
                                   Navigator.of(context).pop();
                                 }),
-                                Text('This is a Flipper!!!')
+                            Text('This is a Flipper!!!')
                           ],
                         )),
                   );

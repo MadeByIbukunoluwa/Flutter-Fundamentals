@@ -1,3 +1,4 @@
+import 'package:animations_in_flutter/staggeredanimations.dart';
 import 'package:flutter/material.dart';
 import 'package:animations_in_flutter/dynamicallymodifytweenvalues.dart';
 import 'package:animations_in_flutter/implicitanimations.dart';
@@ -8,8 +9,11 @@ import 'package:flutter/widgets.dart';
 import 'package:animations_in_flutter/creatingcustomexplicitanimations.dart';
 import 'package:animations_in_flutter/animationdeepdive.dart';
 import 'package:animations_in_flutter/animationstutorial.dart';
+import 'package:animations_in_flutter/chart/animatedchart.dart';
 import 'package:flutter/scheduler.dart';
 import 'implicitanimationscodelab.dart';
+import 'package:animations_in_flutter/heroanimations.dart';
+
 // import 'package:flutter/src/animation/tween.dart';
 import 'dart:math';
 
@@ -23,7 +27,10 @@ void main() {
   // runApp(MyAppHome());
   // runApp(MyAnimatedApp());
   // runApp(MyFadeInDemoApp());
-  runApp(LogoApp());
+  // runApp(LogoApp());
+  // runApp(ChartApp());
+  // runApp(MyHero());
+  runApp(StaggerDemoApp());
   // var ticker = Ticker((elapsed) => print('hello'));
   // ticker.start();
   // ticker.dispose();

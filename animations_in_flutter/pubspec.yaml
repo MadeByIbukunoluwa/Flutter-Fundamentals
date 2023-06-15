@@ -66,6 +66,7 @@ flutter:
     - assets/images/sun.png
     - assets/images/galaxy.png
     - assets/images/ufo1.png
+    - assets/images/flippers-alpha.png 
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

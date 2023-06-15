@@ -716,3 +716,58 @@ use listeners and statuslisteners to monitor state changes
 
 
 ## Essential animation concepts and classes
+
+
+
+Moving to a new development stack makes you aware of your priorities. Near the top of my list are these three:
+
+Strong concepts deal effectively with complexity by providing simple, relevant ways of structuring thoughts, logic, or data.
+Clear code lets us express those concepts cleanly, without being distracted by language pitfalls, excessive boilerplate, or auxiliary detail.
+Fast iteration is key to experimentation and learning — and software development teams learn for a living: what the requirements really are, and how best to fulfill them with concepts expressed in code.
+
+How do you enter into a new field of programming? Experimentation is obviously key, as is studying and emulating programs written by more experienced peers. I personally like to complement these approaches with concept mining: Trying to work from first principles, identifying concepts, exploring their strength, deliberately seeking their guidance. It is a rationalistic approach which cannot stand on its own, but one that is intellectually stimulating and may lead you to deeper insights faster.
+
+
+In flutter, the user interface is defined by a tree of immutable widgets which is build via a foxtrot of constructor calls (where you get to configure widgets) and build methods (where widget implementatiosn get to decide how their subtrees look). The resulting tree structure for our app is shown below , with the main role of each widget in parentheses , each conrete widget type has a very focused responsibility 
+
+
+
+## Tween
+Enter tweens. While far from unique to Flutter, they are a delightfully simple concept for structuring animation code. Their main contribution is to replace the imperative approach above with a functional one. A tween is a value. It describes the path taken between two points in a space of other values, like bar charts, as the animation value runs from zero to one.
+
+## Hero Animations 
+Hero refers to the widget that flies between screens 
+
+Flying an image or widget from one screen to another is called Hero Transition or animation though it can also be called shared element transition 
+
+
+## Staggered Animations
+A staggered animation consists of sequential or overlapping animations 
+
+
+
+
+## Advanced UI
+
+
+### Fonts 
+Typography covers the style and appearance of type or fonts , it specifies how heavy the font is and other visual aspects of the text 
+Variable Fonts allows you to control pre defined aspects of text styling 
+### Gestures 
+The gesture system in flutter has two separate layers 
+
+the first layer has raw pointer events that describe the location and movemnet of pointers 
+
+the second layer has gestures that describe semantic actions that consists of one or more pointer 
+
+pointers represent raw data about the users interaction with the device's screen 
+
+Gestures represents semantic actions 
+
+## Actions and Shortcuts 
+For an application to do naything it has to have actions - users want to tell the application to do something 
+
+Flutters actions and shortcuts system allows users developers to define actions that fulfil intents bound to them , in this context an intent is a generic action that the user wants to perform 
+
+Why separate Actions from Intents?
+You might wonder: why not just map a key combination directly to an action? Why have intents at all? This is because it is useful to have a separation of concerns between where the key mapping definitions are (often at a high level), and where the action definitions are (often at a low level), and because it is important to be able to have a single key combination map to an intended operation in an app, and have it adapt automatically to whichever action fulfills that intended operation for the focused context.

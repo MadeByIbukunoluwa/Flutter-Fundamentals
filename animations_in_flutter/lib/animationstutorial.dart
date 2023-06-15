@@ -70,7 +70,7 @@ class _LogoAppState extends State<LogoApp> with SingleTickerProviderStateMixin {
 
 //we can use the AnimatedWidget helper class (instead of addListener() and setState()) to create a widget that animates
 
-//Use animatedWidget to create a widget that performs a reuable animation . To separate the transition from the widget, use an animatedBuilder
+//Use animatedWidget to create a widget that performs a reusable animation . To separate the transition from the widget, use an animatedBuilder
 
 //Examples of AnimatedWidgets in the Flutter API: AnimatedBuilder, AnimatedModalBarrier, DecoratedBoxTransition, FadeTransition, PositionedTransition, RelativePositionedTransition, RotationTransition, ScaleTransition, SizeTransition, SlideTransition.
 
