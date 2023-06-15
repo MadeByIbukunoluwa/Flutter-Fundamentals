@@ -3,6 +3,10 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/widgets.dart';
 
+// https://docs.flutter.dev/ui/animations/staggered-animations
+
+
+
 class StaggerDemoApp extends StatelessWidget {
   const StaggerDemoApp({super.key});
 
@@ -19,23 +23,28 @@ class StaggerAnimation extends StatelessWidget {
       : opacity = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: controller,
             curve: const Interval(0.0, 0.100, curve: Curves.ease))),
+
         width = Tween<double>(begin: 50.0, end: 150.0).animate(CurvedAnimation(
             parent: controller,
             curve: const Interval(0.0, 0.100, curve: Curves.ease))),
+
         height = Tween<double>(begin: 50.0, end: 150.0).animate(CurvedAnimation(
             parent: controller,
             curve: const Interval(0.250, 0.375, curve: Curves.ease))),
+
         padding = EdgeInsetsTween(
                 begin: const EdgeInsets.only(bottom: 16),
                 end: const EdgeInsets.only(bottom: 75))
             .animate(CurvedAnimation(
                 parent: controller,
                 curve: const Interval(0.250, 0.375, curve: Curves.ease))),
+
         borderRadius = BorderRadiusTween(
                 begin: BorderRadius.circular(4), end: BorderRadius.circular(75))
             .animate(CurvedAnimation(
                 parent: controller,
                 curve: const Interval(0.375, 0.500, curve: Curves.ease))),
+                
         color = ColorTween(begin: Colors.indigo[100], end: Colors.orange[400])
             .animate(CurvedAnimation(
                 parent: controller,
