@@ -1,7 +1,7 @@
 // https://medium.com/flutter/slivers-demystified-6ff68ab0296f
 //https://www.kindacode.com/article/flutter-finding-x-and-y-coordinates-of-a-widget-at-runtime/
 // https://stackoverflow.com/questions/60528815/flutter-how-to-scroll-to-a-specific-item-position-in-sliverlist
-
+//https://diamantidis.github.io/2021/10/10/exploring-flutter-scrollable-ensurevisible
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:flutter/src/widgets/framework.dart';
@@ -87,7 +87,6 @@ class _CollapsingListState extends State<CollapsingList> {
       );
     }
   }
-
   Widget makeHeader(String headerText, GlobalKey key) {
     return SliverPersistentHeader(
       pinned: true,
