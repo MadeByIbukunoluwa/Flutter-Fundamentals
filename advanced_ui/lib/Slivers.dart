@@ -50,20 +50,39 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   }
 }
 
-class CollapsingList extends StatelessWidget {
+
+
+class CollapsingList extends StatefulWidget {
   const CollapsingList({super.key});
 
+  @override
+  State<CollapsingList> createState() => _CollapsingListState();
+}
+
+class _CollapsingListState extends State<CollapsingList> {
+
   Widget makeHeader(String headerText) {
-    return SliverPersistentHeader(
-      pinned: true,
-      delegate: _SliverAppBarDelegate(
-          maxHeight: 200.0,
-          minHeight: 60.0,
-          child: Container(
-            color: Colors.lightBlueAccent,
-            child: Center(child: Text(headerText)),
-          )),
-    );
+    return GestureDetector(
+        onTap: () {},
+        child: SliverPersistentHeader(
+          pinned: true,
+          delegate: _SliverAppBarDelegate(
+              maxHeight: 200.0,
+              minHeight: 60.0,
+              child: Container(
+                color: Colors.lightBlueAccent,
+                child: Center(child: Text(headerText)),
+              )),
+        ));
+  }
+  
+
+  ScrollController _controller;
+  
+  @override
+  void initState() {
+    _controller = ScrollController();
+    super.initState();
   }
 
   @override
@@ -104,8 +123,7 @@ class CollapsingList extends StatelessWidget {
             crossAxisSpacing: 10.0,
             childAspectRatio: 4.0,
           ),
-          delegate:
-              SliverChildBuilderDelegate((BuildContext context, index) {
+          delegate: SliverChildBuilderDelegate((BuildContext context, index) {
             return Container(
                 alignment: Alignment.center,
                 color: Colors.teal[100 * (index % 9)],
@@ -113,8 +131,19 @@ class CollapsingList extends StatelessWidget {
           }, childCount: 20),
         ),
         makeHeader('Header Section 4'),
-        
+        SliverList(
+          delegate: SliverChildListDelegate(List.generate(
+              5,
+              (i) => Container(
+                    color: generateRandomColor(),
+                    height: 150.0,
+                  ))),
+        )
       ],
     );
   }
 }
+
+
+
+
