@@ -50,8 +50,6 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   }
 }
 
-
-
 class CollapsingList extends StatefulWidget {
   const CollapsingList({super.key});
 
@@ -60,29 +58,54 @@ class CollapsingList extends StatefulWidget {
 }
 
 class _CollapsingListState extends State<CollapsingList> {
+  late ScrollController _controller;
 
-  Widget makeHeader(String headerText) {
-    return GestureDetector(
-        onTap: () {},
-        child: SliverPersistentHeader(
-          pinned: true,
-          delegate: _SliverAppBarDelegate(
-              maxHeight: 200.0,
-              minHeight: 60.0,
-              child: Container(
-                color: Colors.lightBlueAccent,
-                child: Center(child: Text(headerText)),
-              )),
-        ));
-  }
-  
+  double? _x, _y;
 
-  ScrollController _controller;
-  
+  final GlobalKey key1 = GlobalKey();
+  final GlobalKey key2 = GlobalKey();
+  final GlobalKey key3 = GlobalKey();
+  final GlobalKey key4 = GlobalKey();
+
   @override
   void initState() {
     _controller = ScrollController();
     super.initState();
+  }
+
+  void _getOffset(GlobalKey key) {
+    RenderBox? box = key.currentContext?.findRenderObject() as RenderBox?;
+    Offset? position = box?.localToGlobal(Offset.zero);
+    if (position != null) {
+      setState(() {
+        _x = position.dx;
+        _y = position.dy;
+      });
+    }
+  }
+
+  void scrollToHeader(GlobalKey key) {
+    _getOffset(key);
+    _controller.animateTo(-(_y as double),
+        duration: Duration(milliseconds: 500), curve: Curves.linear);
+  }
+
+  // best thing we can do here is
+  // in the function , we would have a
+
+  Widget makeHeader(String headerText, GlobalKey key) {
+    return SliverPersistentHeader(
+      pinned: true,
+      delegate: _SliverAppBarDelegate(
+          maxHeight: 200.0,
+          minHeight: 60.0,
+          child: GestureDetector(
+              onTap: () => scrollToHeader(key),
+              child: Container(
+                color: Colors.lightBlueAccent,
+                child: Center(child: Text(headerText)),
+              ))),
+    );
   }
 
   @override
@@ -96,9 +119,11 @@ class _CollapsingListState extends State<CollapsingList> {
     }
 
     return CustomScrollView(
+      controller: _controller,
       slivers: <Widget>[
-        makeHeader('Header Section 1 '),
+        makeHeader('Header Section 1', key1),
         SliverGrid.count(
+            key: key1,
             crossAxisCount: 3,
             children: List.generate(
                 9,
@@ -106,8 +131,9 @@ class _CollapsingListState extends State<CollapsingList> {
                       color: generateRandomColor(),
                       height: 150.0,
                     ))),
-        makeHeader('Header Section 2'),
+        makeHeader('Header Section 2', key2),
         SliverFixedExtentList(
+          key: key2,
           itemExtent: 150.0,
           delegate: SliverChildListDelegate(List.generate(
               5,
@@ -115,8 +141,9 @@ class _CollapsingListState extends State<CollapsingList> {
                     color: generateRandomColor(),
                   ))),
         ),
-        makeHeader('Header Section 3 '),
+        makeHeader('Header Section 3', key3),
         SliverGrid(
+          key: key3,
           gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
             maxCrossAxisExtent: 200.0,
             mainAxisSpacing: 10.0,
@@ -130,8 +157,9 @@ class _CollapsingListState extends State<CollapsingList> {
                 child: Text('grid item $index'));
           }, childCount: 20),
         ),
-        makeHeader('Header Section 4'),
+        makeHeader('Header Section 4', key4),
         SliverList(
+          key: key4,
           delegate: SliverChildListDelegate(List.generate(
               5,
               (i) => Container(
@@ -143,7 +171,3 @@ class _CollapsingListState extends State<CollapsingList> {
     );
   }
 }
-
-
-
-
