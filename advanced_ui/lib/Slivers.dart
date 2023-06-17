@@ -75,11 +75,17 @@ class _CollapsingListState extends State<CollapsingList> {
     super.initState();
   }
 
-
   // best thing we can do here is
   // in the function , we would have a
   _scrollToHeader(GlobalKey key) {
-     Scrollable.ensureVisible(key.currentContext!);
+    final targetContext = key.currentContext;
+    if (targetContext != null) {
+      Scrollable.ensureVisible(
+        targetContext,
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeInOutCubic,
+      );
+    }
   }
 
   Widget makeHeader(String headerText, GlobalKey key) {
