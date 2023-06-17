@@ -1,4 +1,6 @@
 // https://medium.com/flutter/slivers-demystified-6ff68ab0296f
+//https://www.kindacode.com/article/flutter-finding-x-and-y-coordinates-of-a-widget-at-runtime/
+// https://stackoverflow.com/questions/60528815/flutter-how-to-scroll-to-a-specific-item-position-in-sliverlist
 
 import 'package:flutter/material.dart';
 import 'dart:math';
@@ -73,25 +75,12 @@ class _CollapsingListState extends State<CollapsingList> {
     super.initState();
   }
 
-  void _getOffset(GlobalKey key) {
-    RenderBox? box = key.currentContext?.findRenderObject() as RenderBox?;
-    Offset? position = box?.localToGlobal(Offset.zero);
-    if (position != null) {
-      setState(() {
-        _x = position.dx;
-        _y = position.dy;
-      });
-    }
-  }
-
-  void scrollToHeader(GlobalKey key) {
-    _getOffset(key);
-    _controller.animateTo(-(_y as double),
-        duration: Duration(milliseconds: 500), curve: Curves.linear);
-  }
 
   // best thing we can do here is
   // in the function , we would have a
+  _scrollToHeader(GlobalKey key) {
+     Scrollable.ensureVisible(key.currentContext!);
+  }
 
   Widget makeHeader(String headerText, GlobalKey key) {
     return SliverPersistentHeader(
@@ -100,7 +89,7 @@ class _CollapsingListState extends State<CollapsingList> {
           maxHeight: 200.0,
           minHeight: 60.0,
           child: GestureDetector(
-              onTap: () => scrollToHeader(key),
+              onTap: () => _scrollToHeader(key),
               child: Container(
                 color: Colors.lightBlueAccent,
                 child: Center(child: Text(headerText)),
