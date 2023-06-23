@@ -1,10 +1,10 @@
 import 'daily_forecast.dart';
 
-const String baseAssetURL = 'https://dartpad-workshops-io2021.web.app/getting_started_with_slivers/';
+const String baseAssetURL =
+    'https://dartpad-workshops-io2021.web.app/getting_started_with_slivers/';
 
-
- Map<int, DailyForecast> _kDummyData = {
-   0: DailyForecast(
+Map<int, DailyForecast> _kDummyData = {
+  0: DailyForecast(
     id: 0,
     imageId: '${baseAssetURL}assets/day_0.jpeg',
     highTemp: 73,
@@ -54,4 +54,4 @@ const String baseAssetURL = 'https://dartpad-workshops-io2021.web.app/getting_st
     lowTemp: 58,
     description: 'Sun throughout the day.',
   ),
-}
+};
