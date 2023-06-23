@@ -37,9 +37,15 @@ class WeeklyForecastList extends StatelessWidget {
         itemBuilder: (BuildContext context, index) {
           return Card(
             child:ListTile(
-              leading: Text(),
+              leading: Text(dailyForecast.getWeekday(currentDate.weekday),style: textTheme.headlineMedium,),
+              title: Text(dailyForecast.getWeekday(currentDate.weekday),style: textTheme.headlineSmall),
+              subtitle: Text(dailyForecast.description),
+              trailing: Text('${dailyForecast.highTemp} | ${dailyForecast.lowTemp} F', style: textTheme.titleMedium,),
             )
           );
       });
   }
 }
+
+
+
