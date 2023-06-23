@@ -47,5 +47,3 @@ class WeeklyForecastList extends StatelessWidget {
   }
 }
 
-
-
