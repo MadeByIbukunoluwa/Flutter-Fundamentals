@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class DailyForecast {
   DailyForecast(
       {required this.id,
@@ -25,12 +23,13 @@ class DailyForecast {
     ];
     final int offset = today + id;
 
-    // or int day = offset >= 7 ? offset - 7 : offset 
-    
+    // or int day = offset >= 7 ? offset - 7 : offset
+
     int day = offset % 7;
 
     return _weekdays[day];
   }
 
-  getDate(int today) {}
+  int getDate(int today) => today + id; 
+  
 }
