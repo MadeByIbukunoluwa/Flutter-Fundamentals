@@ -36,20 +36,58 @@ class WeeklyForecastList extends StatelessWidget {
     return ListView.builder(
         itemCount: 7,
         itemBuilder: (BuildContext context, index) {
-       final DailyForecast dailyForecast = Server.getDailyForecastByID(index);
+          final DailyForecast dailyForecast =
+              Server.getDailyForecastByID(index);
           return Card(
-              child: ListTile(
-            leading: Text(
-              dailyForecast.getWeekday(currentDate.weekday),
-              style: textTheme.headlineMedium,
-            ),
-            title: Text(dailyForecast.getWeekday(currentDate.weekday),
-                style: textTheme.headlineSmall),
-            subtitle: Text(dailyForecast.description),
-            trailing: Text(
-              '${dailyForecast.highTemp} | ${dailyForecast.lowTemp} F',
-              style: textTheme.titleMedium,
-            ),
+              child: Row(
+            children: <Widget>[
+              Text(dailyForecast.getWeekday(currentDate.day).toString(),
+                  style: textTheme.headlineMedium),
+              SizedBox(
+                height: 200,
+                width: 200,
+                child:Stack(
+                  fit: StackFit.expand,
+                  children: <Widget>[
+                    DecoratedBox(
+                      decoration: BoxDecoration(
+                              gradient: RadialGradient(colors: [
+                        Colors.grey[800]!,
+                        Colors.transparent
+                      ])),
+                      child: Image.network(
+                        dailyForecast.imageId,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                Center(
+                  child:Text(
+                    dailyForecast.getDate(currentDate.day).toString(),
+                    style: textTheme.headlineMedium,
+                  )
+                )
+                  ],
+                )
+              ),
+              Expanded(
+                  child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                              dailyForecast
+                                  .getWeekday(currentDate.day)
+                                  .toString(),
+                              style: textTheme.headlineSmall),
+                          Text(dailyForecast.description),
+                        ],
+                      ))),
+              Text(
+                '${dailyForecast.highTemp} | ${dailyForecast.lowTemp} F',
+                style: textTheme.titleMedium,
+              ),
+            ],
           ));
         });
   }
