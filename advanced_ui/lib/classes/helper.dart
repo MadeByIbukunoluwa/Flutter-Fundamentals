@@ -1,9 +1,13 @@
 import 'daily_forecast.dart';
 
-const String baseAssetURL =
-    'https://dartpad-workshops-io2021.web.app/getting_started_with_slivers/';
+const String baseAssetURL = 'https://dartpad-workshops-io2021.web.app/getting_started_with_slivers/';
 
-Map<int, DailyForecast> _kDummyData = {
+const String headerImage = '${baseAssetURL}assets/header.jpeg';
+
+
+// it was not being exported before because it was marked as a private identifier with "_" in front of it 
+
+Map<int, DailyForecast> kDummyData = {
   0: DailyForecast(
     id: 0,
     imageId: '${baseAssetURL}assets/day_0.jpeg',
@@ -55,3 +59,5 @@ Map<int, DailyForecast> _kDummyData = {
     description: 'Sun throughout the day.',
   ),
 };
+
+
