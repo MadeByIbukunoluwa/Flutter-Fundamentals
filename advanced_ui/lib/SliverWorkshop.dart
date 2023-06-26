@@ -1,5 +1,6 @@
 // https://dartpad.dev/workshops.html?webserver=https://dartpad-workshops-io2021.web.app/getting_started_with_slivers
 
+import 'package:advanced_ui/classes/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:advanced_ui/classes/constant_scroll_behavior.dart';
 import 'package:advanced_ui/classes/daily_forecast.dart';
@@ -28,6 +29,24 @@ class HorizonsApp extends StatelessWidget {
                   backgroundColor: Colors.teal[800],
                   pinned:true,
                   expandedHeight: 200.0,
+                  flexibleSpace: FlexibleSpaceBar(
+                    title: Text('Horizons'),
+                    collapseMode: CollapseMode.pin,
+                    background: DecoratedBox(
+                      position: DecorationPosition.foreground,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: <Color>[
+                            Colors.teal[800]!,Colors.transparent
+                            ]
+                        )
+                      ),
+                      child: Image.network(
+                      headerImage,
+                      fit:BoxFit.cover
+                    ),
+                    )
+                  ),
                   // floating: true,
                   // snap:true
               ),
