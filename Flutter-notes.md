@@ -771,3 +771,58 @@ Flutters actions and shortcuts system allows users developers to define actions 
 
 Why separate Actions from Intents?
 You might wonder: why not just map a key combination directly to an action? Why have intents at all? This is because it is useful to have a separation of concerns between where the key mapping definitions are (often at a high level), and where the action definitions are (often at a low level), and because it is important to be able to have a single key combination map to an intended operation in an app, and have it adapt automatically to whichever action fulfills that intended operation for the focused context.
+
+
+## Slivers 
+Slivers are a portion of scrollable area that you can define to behave in a certain way , you canue slivers to achieve custome scrolling effects such as elastic scrolling 
+All scrollable areas that you have seen or used n fluttter such as ListView or GridView were implemented using slivers , you can think of slivers as a lower-level interface, providing finer-grained control on implementing scrollable area 
+
+
+
+
+## Widget Index
+
+List of almost all widgets in flutter [<https://docs.flutter.dev/reference/widgets>]
+
+
+## Flutter CLI reference
+
+List of Flutter commands [<https://docs.flutter.dev/reference/flutter-cli>]
+
+
+## Platform adaptations 
+
+Platform adaptations[<https://docs.flutter.dev/resources/platform-adaptations>]
+
+
+
+## Deep in flutter
+
+Inside Flutter [<https://docs.flutter.dev/resources/inside-flutter>]
+Architectural Overview [<https://docs.flutter.dev/resources/architectural-overview>]
+
+
+
+
+
+
+// cannot use Image.network 
+Another exception was thrown: SocketException: Connection failed (OS Error: Operation not
+permitted, errno = 1), address = dartpad-workshops-io2021.web.app, port = 443
+
+//solved
+<https://stackoverflow.com/questions/65458903/socketexception-connection-failed-os-error-operation-not-permitted-errno-1>
+
+FlexibleSpaceBar - this widget is designed to stretch and ollapse its content 
+
+
+
+## Box Widget Sliver Widget
+
+ListView SliverList
+GridView SliverGrid
+Padding SliverPadding
+AnimatedList SliverAnimatedList
+FadeTransition SliverFadeTransition
+IgnorePointer SliverIgnorePointer
+All sliver widgets are prefixed with Sliver.
