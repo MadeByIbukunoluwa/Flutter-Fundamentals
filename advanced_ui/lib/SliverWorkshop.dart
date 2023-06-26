@@ -17,11 +17,23 @@ class HorizonsApp extends StatelessWidget {
         scrollBehavior: ConstantScrollBehavior(),
         title: 'HorizonsWeather',
         home: Scaffold(
-          appBar: AppBar(
-            title: Text("Horizons"),
-            backgroundColor: Colors.teal[800],
-          ),
-          body: WeeklyForecastList(),
+          // appBar: AppBar(
+          //   title: Text("Horizons"),
+          //   backgroundColor: Colors.teal[800],
+          // ),
+          body: CustomScrollView(
+            slivers: <Widget>[
+              SliverAppBar(
+                  title: Text('Horizons'),
+                  backgroundColor: Colors.teal[800],
+                  pinned:true,
+                  expandedHeight: 200.0,
+                  // floating: true,
+                  // snap:true
+              ),
+              WeeklyForecastList(),
+            ],
+          )
         ));
   }
 }
@@ -33,9 +45,10 @@ class WeeklyForecastList extends StatelessWidget {
   Widget build(BuildContext context) {
     DateTime currentDate = DateTime.now();
     TextTheme textTheme = Theme.of(context).textTheme;
-    return ListView.builder(
-        itemCount: 7,
-        itemBuilder: (BuildContext context, index) {
+    return SliverList(
+        delegate: SliverChildBuilderDelegate(
+        childCount: 7,
+       (BuildContext context, index) {
           final DailyForecast dailyForecast =
               Server.getDailyForecastByID(index);
           return Card(
@@ -89,6 +102,6 @@ class WeeklyForecastList extends StatelessWidget {
               ),
             ],
           ));
-        });
+        }));
   }
 }
